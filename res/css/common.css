@@ -1,0 +1,78 @@
+/*
+asumsi: 1em = 0,633802817 karakter
+*/
+label {
+	display:block;
+	float:left;
+	width:6em;
+}
+
+#DataForm input[type=text] {
+	display:block;
+}
+
+.InlineImportant {
+	display:inline !important;
+	margin-bottom:1em;
+}
+
+fieldset {
+	border-color:orange;
+}
+
+#MainMenu li {
+	display:inline;
+}
+
+.AlignRight {
+	text-align:right;
+}
+
+.AlignLeft {
+	text-align:left;
+}
+
+.Date{
+  width: 6.3em;
+}
+.Name{
+  width: 45em;
+}
+#Search{
+  width: 45em;
+}
+.ShortName{
+  width: 35em;
+}
+.LongName{
+  width: 80em;
+}
+.ShortNumber {
+	width: 5em;
+}
+.PhoneNumber{
+  width: 12.7em;
+}
+.Year{
+  width: 4em;
+}
+
+.ShortText {
+	width: 6.3em;
+}
+
+.Currency {
+	width: 12em;
+}
+
+.Integer {
+	width: 5.7em;
+}
+.Search {
+	width:60em;
+}
+textarea {
+	width: 45em;
+	display:block;
+}
+

@@ -1,0 +1,4 @@
+#DataTable td:nth-child(1), td:nth-child(5), td:nth-child(6) {
+	text-align:right;
+}
+
