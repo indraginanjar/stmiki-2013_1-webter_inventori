@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2013 at 08:49 AM
+-- Generation Time: Nov 08, 2013 at 08:05 PM
 -- Server version: 5.5.34-0ubuntu0.13.04.1
 -- PHP Version: 5.4.9-4ubuntu2.3
 
@@ -22,6 +22,30 @@ SET time_zone = "+00:00";
 CREATE DATABASE `webter_inventori` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `webter_inventori`;
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `test`()
+BEGIN
+declare a int unsigned;
+declare b int unsigned;
+declare c decimal;
+declare d int unsigned;
+set a = 50;
+set b = 60;
+set d = 100;
+select cast(a as decimal);
+select cast(b as decimal);
+
+set c = cast(a as decimal)-cast(b as decimal);
+select c;
+set d = d + c;
+select d;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -33,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `tbbarang` (
   `barcode` varchar(10) NOT NULL,
   `namabrg` varchar(71) NOT NULL,
   `satuan` varchar(10) NOT NULL,
-  `harga` double unsigned NOT NULL,
+  `harga` bigint(20) unsigned NOT NULL,
   `stok` int(10) unsigned NOT NULL,
   PRIMARY KEY (`kodebrg`),
   UNIQUE KEY `barcode` (`barcode`)
@@ -55,16 +79,37 @@ CREATE TABLE IF NOT EXISTS `tbbeli` (
   PRIMARY KEY (`nofaktur`),
   KEY `kodebrg` (`kodebrg`),
   KEY `kodesupp` (`kodesupp`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Triggers `tbbeli`
 --
+DROP TRIGGER IF EXISTS `del_beli`;
+DELIMITER //
+CREATE TRIGGER `del_beli` AFTER DELETE ON `tbbeli`
+ FOR EACH ROW begin
+update tbbarang set stok=stok - old.jumlah
+where kodebrg=old.kodebrg;
+end
+//
+DELIMITER ;
 DROP TRIGGER IF EXISTS `ins_beli`;
 DELIMITER //
-CREATE TRIGGER `ins_beli` BEFORE INSERT ON `tbbeli`
+CREATE TRIGGER `ins_beli` AFTER INSERT ON `tbbeli`
  FOR EACH ROW begin
 update tbbarang set stok=stok + new.jumlah
+where kodebrg=new.kodebrg;
+end
+//
+DELIMITER ;
+DROP TRIGGER IF EXISTS `upd_beli`;
+DELIMITER //
+CREATE TRIGGER `upd_beli` AFTER UPDATE ON `tbbeli`
+ FOR EACH ROW begin
+declare JumlahBaru decimal;
+set JumlahBaru = cast(new.jumlah as decimal) - cast(old.jumlah as decimal);
+
+update tbbarang set stok = stok + JumlahBaru
 where kodebrg=new.kodebrg;
 end
 //
@@ -100,7 +145,38 @@ CREATE TABLE IF NOT EXISTS `tbjual` (
   PRIMARY KEY (`nofaktur`),
   KEY `kodecst` (`kodecst`),
   KEY `kodebrg` (`kodebrg`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+
+--
+-- Triggers `tbjual`
+--
+DROP TRIGGER IF EXISTS `del_jual`;
+DELIMITER //
+CREATE TRIGGER `del_jual` AFTER DELETE ON `tbjual`
+ FOR EACH ROW begin
+update tbbarang set stok=stok + old.jumlah
+where kodebrg=old.kodebrg;
+end
+//
+DELIMITER ;
+DROP TRIGGER IF EXISTS `ins_jual`;
+DELIMITER //
+CREATE TRIGGER `ins_jual` AFTER INSERT ON `tbjual`
+ FOR EACH ROW begin
+update tbbarang set stok=stok - new.jumlah
+where kodebrg=new.kodebrg;
+end
+//
+DELIMITER ;
+DROP TRIGGER IF EXISTS `upd_jual`;
+DELIMITER //
+CREATE TRIGGER `upd_jual` AFTER UPDATE ON `tbjual`
+ FOR EACH ROW begin
+update tbbarang set stok=stok + new.jumlah - old.jumlah
+where kodebrg=new.kodebrg;
+end
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -174,8 +250,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Constraints for table `tbbeli`
 --
 ALTER TABLE `tbbeli`
-  ADD CONSTRAINT `tbbeli_ibfk_4` FOREIGN KEY (`kodesupp`) REFERENCES `tbsuplier` (`kodesupp`) ON DELETE CASCADE,
-  ADD CONSTRAINT `tbbeli_ibfk_3` FOREIGN KEY (`kodebrg`) REFERENCES `tbbarang` (`kodebrg`) ON DELETE CASCADE;
+  ADD CONSTRAINT `tbbeli_ibfk_3` FOREIGN KEY (`kodebrg`) REFERENCES `tbbarang` (`kodebrg`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tbbeli_ibfk_4` FOREIGN KEY (`kodesupp`) REFERENCES `tbsuplier` (`kodesupp`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbjual`
