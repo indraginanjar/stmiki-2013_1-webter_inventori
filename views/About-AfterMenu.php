@@ -1,6 +1,6 @@
 <p>
-    Anggota Kelompok IV :<br />
-  
+    Anggota Kelompok IV : <br />
+    STMIK Indonesia Padang
 </p>
 <table>
     <thead>
