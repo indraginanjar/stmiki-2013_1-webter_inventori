@@ -24,6 +24,7 @@ $( '.ShortText' ).attr('maxlength', 10);
 $( '.Search' ).attr('maxlength', 71);
 
 $( "input:submit, input:button" ).button();
+$( "input:reset, input:button" ).button();
 
 $('input:text, input:password')
 .button()

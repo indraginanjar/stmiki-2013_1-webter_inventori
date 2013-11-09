@@ -6,21 +6,24 @@ class MainController extends Controller implements IController {
 
 	function actionIndex() {
 		$this->actionBarang();	
+                
 	}
 
-	function actionBarang() {
-		require_once dirname(__FILE__) . '/BarangController.php';
-		$controller = new BarangController();
-		$controller->Run();
-		
-	}
+	
 	
 	function actionSupplier() {
+              
 		require_once dirname(__FILE__) . '/SupplierController.php';
 		$controller = new SupplierController();
 		$controller->Run();
 	}
 
+        function actionBarang() {
+		require_once dirname(__FILE__) . '/BarangController.php';
+		$controller = new BarangController();
+		$controller->Run();
+		
+	}
 	function actionCustomer() {
 		require_once dirname(__FILE__) . '/CustomerController.php';
 		$controller = new CustomerController();

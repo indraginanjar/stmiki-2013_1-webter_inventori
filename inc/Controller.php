@@ -12,6 +12,7 @@ abstract class Controller implements IController {
 	}
 
 	function Run() {
+            
 		if($this->_Param->GetActionCount() > 1) {
 			eval('$this->action'.$this->_Param->GetAction(1).'();');
 			return;

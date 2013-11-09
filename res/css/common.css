@@ -1,78 +1,201 @@
 /*
 asumsi: 1em = 0,633802817 karakter
 */
+body{
+    background-color: #EFF3F6;
+    font-family: serif;
+}
+.ui-widget {
+    font-size:80%;
+}
+#page-wrap{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#header{
+    padding: 0px;
+    margin: 0px;
+}
+#header img{
+    width: 1002px;
+    padding: 0px;
+    margin: 0px;
+}
+#MainMenu{
+    background-color: #4451E2;
+    height: 3em;
+    border-radius: 5px;
+    color: #ffffff;
+    display: block;
+    font-family: verdana;
+    font-size: 0.9em;
+}
+
+#MainMenu ul{
+    margin: 0px;
+    padding:5px 5px 5px 5px;
+}
+#MainMenu ul li{
+    padding-top: 10px;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+#MainMenu ul li a:hover{
+   color: #cccccc;
+}
+#MainMenu ul li span,#MainMenu ul li a{
+    vertical-align: middle;
+    color: #ffffff;
+    text-decoration: none;
+}
+#MainMenu li {
+    display:inline;
+}
+
+.logo img{
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+}
+#ContentWrap{
+    border: 1px solid #cccccc;
+    margin-top: 10px;
+    border-radius: 5px;
+}
 label {
-	display:block;
-	float:left;
-	width:6em;
+    display:block;
+    float:left;
+    width:6em;
 }
 
 #DataForm input[type=text] {
-	display:block;
+    display:block;
+    background-color: #FEFEFE;
 }
 
 .InlineImportant {
-	display:inline !important;
-	margin-bottom:1em;
+    display:inline !important;
+    margin-bottom:1em;
 }
-
+h2{
+    padding: 0px;
+    margin: 0px;
+}
+#FormHeader{
+    background-color: #EFF3F6;
+    padding: 10px;
+}
 fieldset {
-	border-color:orange;
+    /*border-color:orange;*/
+    border: none;
+    background: none repeat scroll 0 0 #FEFEFE;
+    border-bottom: 1px solid #DDE0E8;
+    border-top: 1px solid #DDE0E8;
+    padding: 10px 20px;
+}
+footer{
+    background: none repeat scroll 0 0 #EFF4F6;
+    border-top: 1px solid #FFFFFF;
+    overflow: hidden;
+    padding: 15px 20px 15px 20px;
+    float: right;
 }
 
-#MainMenu li {
-	display:inline;
+.box{
+    margin: 20px;
+    
+    overflow: hidden;
+    border: 1px solid #cccccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
+
 
 .AlignRight {
-	text-align:right;
+    text-align:right;
 }
 
 .AlignLeft {
-	text-align:left;
+    text-align:left;
 }
 
 .Date{
-  width: 6.3em;
+    width: 6.3em;
 }
 .Name{
-  width: 45em;
+    width: 30em;
 }
 #Search{
-  width: 45em;
+    width: 30em;
 }
 .ShortName{
-  width: 35em;
+    width: 30em;
 }
 .LongName{
-  width: 80em;
+    width: 30em;
 }
 .ShortNumber {
-	width: 5em;
+    width: 5em;
 }
 .PhoneNumber{
-  width: 12.7em;
+    width: 12.7em;
 }
 .Year{
-  width: 4em;
+    width: 4em;
 }
 
 .ShortText {
-	width: 6.3em;
+    width: 6.3em;
 }
 
 .Currency {
-	width: 12em;
+    width: 12em;
 }
 
 .Integer {
-	width: 5.7em;
+    width: 5.7em;
 }
 .Search {
-	width:60em;
+    width:30em;
 }
 textarea {
-	width: 45em;
-	display:block;
+    width: 30em;
+    display:block;
 }
 
+#DataTableWrap{
+    margin: 20px;
+    border: 1px solid #D6D7D8;
+}
+
+#DataTable
+{
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse:collapse;
+    width: 100%;
+
+}
+#DataTable td, #DataTable th 
+{
+    font-size:0.8em;
+    border:1px solid #E0E1E2;
+    padding:3px 7px 2px 7px;
+}
+#DataTable th 
+{
+    font-size:1em;
+    text-align:center;
+    padding-top:5px;
+    padding-bottom:4px;
+    background-color:#2E64EA;
+    color:#ffffff;
+}
+#DataTable tr.alt td 
+{
+    color:#000000;
+    background-color:#EAF2D3;
+}
+#DataTable tr:hover
+{
+    background-color: #E5E8EA;
+}
