@@ -20,7 +20,7 @@ class SupplierController extends SingleKeyController {
 		$Item = new SupplierStruct();
 		$Item->SetValueByPageParam(POST);
 		$this->_Model->InsertOrUpdate($Item);
-		header( 'location:' . $this->pageName );
+		header('location:' . $this->GetPageUrl());
 		exit();
 	}
 

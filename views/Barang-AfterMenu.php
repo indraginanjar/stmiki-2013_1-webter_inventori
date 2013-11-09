@@ -48,6 +48,8 @@ $Config = new Config();
             </thead>
             <tbody>
                 <?php
+              
+                
                 foreach ($viewParams['Statement'] as $row) {
                     echo '<tr>
 			<!--<th><input type="checkbox" name="RowCheckbox" /></th>-->

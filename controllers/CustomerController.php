@@ -20,7 +20,7 @@ class CustomerController extends SingleKeyController {
 		$Item = new CustomerStruct();
 		$Item->SetValueByPageParam(POST);
 		$this->_Model->InsertOrUpdate($Item);
-		header( 'location:' . $this->pageName );
+		header('location:' . $this->GetPageUrl());
 		exit();
 	}
 
