@@ -1,3 +1,6 @@
+<?php
+$Config = new Config();
+?>
 <div id="ContentWrap">
     <form id="DataForm" class="box" method="post" autocomplete="off" action="<?php echo $this->GetPageUrl() ?>/Insert">
         <div id="FormHeader">

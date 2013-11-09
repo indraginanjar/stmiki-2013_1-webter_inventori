@@ -1,36 +1,24 @@
 <div id="ContentWrap" >
-    <div class="box">
-        <p>
-            Anggota Kelompok IV : <br />
-            STMIK Indonesia Padang
-        </p>
-        <table>
-            <thead>
-                <tr>
-                    <th>NoBP</th>
-                    <th>Nama</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>101100180</td>
-                    <td>Indra Ginanjar</td>
-                </tr>
-                <tr>
-                    <td>101100173</td>
-                    <td>Sugiarto</td>
-                </tr>
-                <tr>
-                    <td>101100199</td>
-                    <td>Adriyanto</td>
-                </tr>
-                <tr>
-                    <td>101100174</td>
-                    <td>Zoel Fadli</td>
-                </tr>
+    <form class="box" id="about" action="<?php echo $Config->BaseUrl ?>index.php">
+        <div id="FormHeader">
+            <h2>About</h2>
+        </div>
+        <fieldset>
+            <p>
+                Ini adalah tugas kelompok matakuliah Web Terapan jelang ujian tengah semester tahun akademik 20131.
+            </p>
 
-            </tbody>
-        </table>
-
-    </div>
+                Anggota Kelompok IV : 
+            <ul>
+                <li>Indra Ginanjar (101100180)</li>
+                <li>Sugiarto (101100173)</li>
+                <li>Adriyanto (101100199)</li>
+                <li>Zoel Fadli (101100174)</li>
+            </ul>
+            
+        </fieldset>
+        <footer>
+            <input type="submit" value="Ok">
+        </footer>
+    </form>
 </div>
