@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.8.1deb1
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 08, 2013 at 08:05 PM
--- Server version: 5.5.34-0ubuntu0.13.04.1
--- PHP Version: 5.4.9-4ubuntu2.3
+-- Generation Time: Nov 10, 2013 at 04:52 AM
+-- Server version: 5.6.12-log
+-- PHP Version: 5.4.16
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `webter_inventori`
 --
-CREATE DATABASE `webter_inventori` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `webter_inventori` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `webter_inventori`;
 
 DELIMITER $$
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `tbbarang` (
   `stok` int(10) unsigned NOT NULL,
   PRIMARY KEY (`kodebrg`),
   UNIQUE KEY `barcode` (`barcode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `tbbeli` (
   PRIMARY KEY (`nofaktur`),
   KEY `kodebrg` (`kodebrg`),
   KEY `kodesupp` (`kodesupp`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Triggers `tbbeli`
@@ -88,7 +88,7 @@ DROP TRIGGER IF EXISTS `del_beli`;
 DELIMITER //
 CREATE TRIGGER `del_beli` AFTER DELETE ON `tbbeli`
  FOR EACH ROW begin
-update tbbarang set stok=stok - old.jumlah
+update tbbarang set stok=cast(stok as decimal) - old.jumlah
 where kodebrg=old.kodebrg;
 end
 //
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `tbcustomer` (
   `alamat` text NOT NULL,
   `telp` varchar(20) NOT NULL,
   PRIMARY KEY (`kodecst`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `tbjual` (
   PRIMARY KEY (`nofaktur`),
   KEY `kodecst` (`kodecst`),
   KEY `kodebrg` (`kodebrg`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
 
 --
 -- Triggers `tbjual`
@@ -163,7 +163,7 @@ DROP TRIGGER IF EXISTS `ins_jual`;
 DELIMITER //
 CREATE TRIGGER `ins_jual` AFTER INSERT ON `tbjual`
  FOR EACH ROW begin
-update tbbarang set stok=stok - new.jumlah
+update tbbarang set stok=cast(stok as decimal) - new.jumlah
 where kodebrg=new.kodebrg;
 end
 //
@@ -172,7 +172,10 @@ DROP TRIGGER IF EXISTS `upd_jual`;
 DELIMITER //
 CREATE TRIGGER `upd_jual` AFTER UPDATE ON `tbjual`
  FOR EACH ROW begin
-update tbbarang set stok=stok + new.jumlah - old.jumlah
+declare JumlahBaru decimal;
+set JumlahBaru = cast(new.jumlah as decimal) - cast(old.jumlah as decimal);
+
+update tbbarang set stok=stok + JumlahBaru
 where kodebrg=new.kodebrg;
 end
 //
@@ -190,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `tbsuplier` (
   `alamat` text NOT NULL,
   `telp` varchar(20) NOT NULL,
   PRIMARY KEY (`kodesupp`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
