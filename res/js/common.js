@@ -38,3 +38,6 @@ $('input:text, input:password')
 	'cursor' : 'text'
 	});
 
+$( "#accordion" ).accordion({
+    heightStyle: "content"
+});

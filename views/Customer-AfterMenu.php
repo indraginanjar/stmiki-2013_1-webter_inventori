@@ -37,7 +37,7 @@
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>Telp</th>
-                    <th></th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>

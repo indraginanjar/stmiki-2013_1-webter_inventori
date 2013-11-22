@@ -3,19 +3,71 @@
         <div id="FormHeader">
             <h2>About</h2>
         </div>
-        <fieldset>
+         <fieldset>
             <p>
-                Ini adalah tugas kelompok matakuliah Web Terapan jelang ujian tengah semester tahun akademik 20131.
+                Tugas kelompok matakuliah Web Terapan jelang ujian tengah semester tahun akademik 20131.
             </p>
+            <h4>Anggota Kelompok IV : </h4>
+            <div id="accordion">
+                <h3>Indra Ginanjar (101100180)</h3>
+                <div class="list-profil">
+                    <div class="image-wrap">
+                        <a href="http://gembira-ah.blogspot.com" target="_blank">
+                            <img src="<?php echo $Config->BaseUrl ?>/res/img/indraginanjar.jpg" width="70" height="100">
+                        </a>
+                        <p>
 
-                Anggota Kelompok IV : 
-            <ul>
-                <li>Indra Ginanjar (101100180)</li>
-                <li>Sugiarto (101100173)</li>
-                <li>Adriyanto (101100199)</li>
-                <li>Zoel Fadli (101100174)</li>
-            </ul>
-            
+                        </p>
+                    </div>
+                    <div clas="text-wrap">
+
+                    </div>
+
+                </div>
+                <h3>Sugiarto (101100173)</h3>
+                <div class="list-profil">
+                    <div class="image-wrap">
+                        <a href="http://sugiarto.web.id" target="_blank">
+                            <img src="<?php echo $Config->BaseUrl ?>/res/img/sugiarto.jpg" width="70" height="100">
+                        </a>
+                    </div>
+                    <div clas="text-wrap">
+                        <p>
+                            Membuat kode program itu tidak susah, yang susah itu membaca kode program orang lain.
+                        </p>
+                    </div>
+
+                </div>
+                <h3>Adriyanto (101100199)</h3>
+                <div class="list-profil">
+                    <div class="image-wrap">
+                        <a href="http://adriyan.web.id" target="_blank">
+                            <img src="<?php echo $Config->BaseUrl ?>/res/img/adriyanto.jpg" width="70" height="100">
+                        </a>
+                    </div>
+                    <div clas="text-wrap">
+                        <p>
+                            Kekuatan Pikiran, Disertai Perbuatan Akan menjadi Kenyataan...!!!
+                        </p>
+                    </div>
+
+                </div>
+                <h3>Zoel Fadli (101100174)</h3>
+                <div class="list-profil">
+                    <div class="image-wrap">
+                        <a href="http://rangpiliang.web.id" target="_blank">
+                            <img src="<?php echo $Config->BaseUrl ?>/res/img/zoelfadli.jpg" width="70" height="100">
+                        </a>
+                    </div>
+                    <div clas="text-wrap">
+                        <p>
+
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
         </fieldset>
         <footer>
             <input type="submit" value="Ok">

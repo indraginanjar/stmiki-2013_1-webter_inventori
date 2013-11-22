@@ -45,6 +45,7 @@
                     <th rowspan="2">Tanggal</th>
                     <th rowspan="2">Harga</th>
                     <th rowspan="2">Jumlah</th>
+                    <th rowspan="2">Aksi</th>
                 </tr>
                 <tr>
                     <th>Kode</th>
@@ -64,7 +65,7 @@
 			<td>', $row['kodecst'], '</td>
 			<td>', $row['namacst'], '</td>
 			<td>', (new DateTime($row['tanggal']))->format(INDONESIAN_DATE_FORMAT), '</td>
-			<td>', $row['harga'], '</td>
+			<td>', number_format($row['harga'],0,'.','.'), '</td>
 			<td>', $row['jumlah'], '</td>
 			<td>
 				<button onclick="delData(', $row[PenjualanModel::KODE_FIELD], ')" >Hapus</button>

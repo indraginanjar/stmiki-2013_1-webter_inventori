@@ -3,7 +3,9 @@ asumsi: 1em = 0,633802817 karakter
 */
 body{
     background-color: #EFF3F6;
-    font-family: serif;
+    font-family: Georgia;
+    color: #232323;
+    font-size: 95%;
 }
 .ui-widget {
     font-size:80%;
@@ -18,18 +20,20 @@ body{
     margin: 0px;
 }
 #header img{
-    width: 1002px;
+    width: 1000px;
     padding: 0px;
     margin: 0px;
 }
 #MainMenu{
+    margin-top: -6px;
     background-color: #4451E2;
-    height: 3em;
-    border-radius: 5px;
+    height: 2.9em;
+    /*border-radius: 5px 5px 0px 0px;*/
     color: #ffffff;
     display: block;
     font-family: verdana;
     font-size: 0.9em;
+    border: 1px solid #4451E2;
 }
 
 #MainMenu ul{
@@ -59,9 +63,12 @@ body{
     height: 24px;
 }
 #ContentWrap{
-    border: 1px solid #cccccc;
-    margin-top: 10px;
-    border-radius: 5px;
+    border-left: 1px solid #cccccc;
+    border-right:  1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+    border-radius: 0px 0px 5px 5px;
+    margin-top: -1px;
 }
 label {
     display:block;
@@ -74,6 +81,9 @@ input[type=text] {
     background-color: #FEFEFE;
 }
 
+#ItemNumber{
+    padding-bottom: 10px;
+}
 .InlineImportant {
     display:inline !important;
     margin-bottom:1em;
@@ -87,12 +97,17 @@ h2{
     padding: 10px;
 }
 fieldset {
-    /*border-color:orange;*/
+     /*border-color:orange;*/
     border: none;
     background: none repeat scroll 0 0 #FEFEFE;
     border-bottom: 1px solid #DDE0E8;
     border-top: 1px solid #DDE0E8;
     padding: 10px 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.none{
+    border: none;
 }
 footer{
     background: none repeat scroll 0 0 #EFF4F6;
@@ -104,10 +119,10 @@ footer{
 
 .box{
     margin: 20px;
-    
     overflow: hidden;
-    border: 1px solid #cccccc;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    border: 1px solid #D8D6D6;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
 }
 
 
@@ -185,8 +200,8 @@ textarea {
     text-align:center;
     padding-top:5px;
     padding-bottom:4px;
-    background-color:#2E64EA;
-    color:#ffffff;
+    background-color:#3968D6;
+    color:#EDEDED;
 }
 #DataTable tr.alt td 
 {
@@ -200,6 +215,22 @@ textarea {
 
 #about{
     width: 600px;
+}
+.image-wrap{
+/*   width: 70px;
+   height: 100px;*/
+   
+}
+.image-wrap p{
+    float: left
+        
+}
+.text-wrap p{
+    text-align: center;
+    padding-left: 20px;
+    margin-left: 20px;
+    float: right;
+
 }
 
 #ItemTable {
