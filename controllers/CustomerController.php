@@ -7,9 +7,9 @@ class CustomerController extends SingleKeyController {
 
 	private $_Model;
 
-	function __construct(){
+	function __construct($controllerActionIndex){
 		$this->_Model = new CustomerModel();
-		parent::__construct('Customer', $this->_Model);
+		parent::__construct('Customer', $this->_Model, $controllerActionIndex);
 	}
 
 	function ActionCustomer() {

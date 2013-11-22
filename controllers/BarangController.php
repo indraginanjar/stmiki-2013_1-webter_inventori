@@ -7,9 +7,9 @@ class BarangController extends SingleKeyController {
 
 	private $_Model;
 
-	function __construct(){
+	function __construct($controllerActionIndex){
 		$this->_Model = new BarangModel();
-		parent::__construct('Barang', $this->_Model);
+		parent::__construct('Barang', $this->_Model, $controllerActionIndex);
 	}
 
 	function ActionBarang(){

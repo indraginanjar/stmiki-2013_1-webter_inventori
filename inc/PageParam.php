@@ -29,8 +29,22 @@ class PageParam {
 		}
 		break;
 	    case POST :
+		if( count($_POST) == 0) {
+			$_POST = json_decode(stripslashes(file_get_contents("php://input")), true);
+		}
+		if( count($_POST) == 0) {
+			$_POST = json_decode(file_get_contents("php://input"), true);
+		}
 		if( isset( $_POST[ $name ] ) ) {
 		    return $_POST[ $name ];
+		}
+		break;
+	    case PUT :
+		return json_decode(file_get_contents("php://input"), false);
+		break;
+	    case DELETE :
+		if( isset( $_GET[ $name ] ) ) {
+		    return $_GET[ $name ];
 		}
 		break;
 	    case SESSION : 

@@ -1,9 +1,9 @@
 <?php
-require_once dirname(__FILE__) . '/../inc/IController.php';
-require_once dirname(__FILE__) . '/../inc/Controller.php';
-require_once dirname(__FILE__) . '/../inc/PageParam.php';
-require_once dirname(__FILE__) . '/../models/SingleKeyModel.php';
-require_once dirname(__FILE__) . '/../Config.php';
+require_once dirname(__FILE__) . '/../../inc/IController.php';
+require_once dirname(__FILE__) . '/../../inc/Controller.php';
+require_once dirname(__FILE__) . '/../../inc/PageParam.php';
+require_once dirname(__FILE__) . '/../../models/SingleKeyModel.php';
+require_once dirname(__FILE__) . '/../../Config.php';
 
 class SingleKeyController extends Controller implements IController {
 
@@ -24,8 +24,41 @@ class SingleKeyController extends Controller implements IController {
 	}
 
 	function ActionIndex() {
-		$Statement = $this->_Model->SelectAll();
-		$this->ShowCommonView(array('Statement' => $Statement));	
+		header('Content-type: application/json; charset=utf-8');
+		$IdActionIndex = $this->GetActionToExecuteIndex();
+		switch($_SERVER['REQUEST_METHOD']) {
+		case 'GET':
+			$Statement = $this->_Model->SelectAll();
+			$Id = $this->_Param->GetAction($IdActionIndex);
+			if($Id == NULL){
+				$Statement = $this->_Model->SelectAll();
+			}
+			else {
+				$Statement = $this->_Model->SelectByKey($Id);
+			}
+			if($Statement) {
+				exit(json_encode($Statement->fetchAll()));
+			}
+			else {
+				header('HTTP/1.1 404 Not Found');
+				exit();
+			}
+			break;
+		case 'DELETE':
+			$Statement = $this->_Model->SelectAll();
+			$Id = $this->_Param->GetAction($IdActionIndex);
+			if($Id == NULL){
+				header('HTTP/1.1 400 Bad Request');  
+				exit('{ "error" : "Missing Required Parameters" }');
+			}
+			$Statement = $this->_Model->DeleteByKey($Id);
+			if(!$Statement){
+				header('HTTP/1.1 404 Not Found');
+				exit('{"error":"Specified Record Are Not found"}');
+			}
+			break;
+		
+		}
 	}
 
 	function ActionSingleKey(){
@@ -33,8 +66,10 @@ class SingleKeyController extends Controller implements IController {
 	}
 
 	function ActionDelete() {
-		$this->_Model->DeleteByKey($this->_Param->GetAction(3));
-		header( 'location:' . $this->_PageUrl);
+		$Id = $this->_Param->GetAction(3);
+		if(!$this->_Model->DeleteByKey($Id)){
+			header('HTTP/1.1 404 Not Found');  
+		}
 		exit();
 	}
 
@@ -59,9 +94,6 @@ class SingleKeyController extends Controller implements IController {
 		return $this->_PageUrl;
 	}
 
-	function GetAction($ActionIndex) {
-		return $this->_Param->GetAction($ActionIndex);
-	}
 
 	function GetModel(){
 		return $this->_Model;
@@ -69,22 +101,6 @@ class SingleKeyController extends Controller implements IController {
 
 	function GetParam() {
 		return $this->_Param;
-	}
-
-	function Run() {
-		switch($this->_Param->GetActionCount()){
-		case 2:
-			eval('$this->Action'.$this->_Param->GetAction(1).'();');
-			break;
-		case 3:
-			eval('$this->Action'.$this->_Param->GetAction(2).'();');
-			break;
-		case 4:
-			eval('$this->Action'.$this->_Param->GetAction(2).'();');
-			break;
-		default:
-			$this->ActionIndex();
-		}
 	}
 }
 ?>

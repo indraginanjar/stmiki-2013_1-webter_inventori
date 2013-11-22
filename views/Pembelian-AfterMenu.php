@@ -1,36 +1,70 @@
 <div id="ContentWrap">
-    <form id="DataForm" class="box" method="post" autocomplete="off" action="<?php echo $this->GetPageUrl() ?>/Insert">
+    <form id="DataForm" class="box" method="post" autocomplete="off" action="javascript:void(0)"></form>
+    <form id="ItemForm" class="box" method="post" autocomplete="off" action="javascript:void(0)"></form>
         <div id="FormHeader">
             <h2>Pembelian</h2>
         </div>
         <fieldset>
-            <label for="nomor">No. Faktur</label>
-            <input type="text" name="nomor" id="nomor" placeholder="Optional" class="Integer" value="<?php echo isset($viewParams['SingleItem']->nofaktur) ? $viewParams['SingleItem']->nofaktur : '' ?>" /><br />
-            <label for="barang">Barang</label>
-            <input type="text" name="barang" id="barang" placeholder="Ketik kode/ nama barang" class="InlineImportant" required value="<?php echo isset($viewParams['SingleItem']->kodebrg) ? $viewParams['SingleItem']->kodebrg : '' ?>" />
-            <span id="NamaBarang"></span>
-            <br />
-            <label for="supplier">Supplier</label>
-            <input type="text" name="supplier" id="supplier" placeholder="Ketik kode/ nama supplier" class="InlineImportant" required value="<?php echo isset($viewParams['SingleItem']->kodesupp) ? $viewParams['SingleItem']->kodesupp : '' ?>" />
-            <span id="NamaSupplier"></span>
-            <br />
-            <label for="tanggal">Tanggal</label>
-            <input type="text" name="tanggal" id="tanggal" class="Date" required value="<?php echo isset($viewParams['SingleItem']->tanggal) ? (new DateTime($viewParams['SingleItem']->tanggal))->format(INDONESIAN_DATE_FORMAT) : '' ?>" /><br />
-            <label for="harga">Harga</label>
-            <input type="text" name="harga" id="harga" class="Currency" required value="<?php echo isset($viewParams['SingleItem']->harga) ? $viewParams['SingleItem']->harga : '' ?>" /><br />
-            <label for="jumlah">Jumlah</label>
-            <input type="text" name="jumlah" id="jumlah" class="Integer" required value="<?php echo isset($viewParams['SingleItem']->jumlah) ? $viewParams['SingleItem']->jumlah : '' ?>" /><br />
+		    <label for="Nomor">No. Faktur</label>
+		    <input type="text" name="Nomor" id="Nomor" placeholder="Optional" class="Integer" form="DataForm" value="<?php echo isset($viewParams['SingleItem']->nofaktur) ? $viewParams['SingleItem']->nofaktur : '' ?>" /><br />
+		    <label for="Tanggal">Tanggal</label>
+		    <input type="text" name="Tanggal" id="Tanggal" class="Date" required form="DataForm" value="<?php echo isset($viewParams['SingleItem']->tanggal) ? (new DateTime($viewParams['SingleItem']->tanggal))->format(INDONESIAN_DATE_FORMAT) : (new DateTime())->format(INDONESIAN_DATE_FORMAT) ?>" /><br />
+		    <label for="Supplier">Supplier</label>
+		    <input type="text" name="Supplier" id="Supplier" placeholder="kode / nama supplier" class="InlineImportant" required form="DataForm" value="<?php echo isset($viewParams['SingleItem']->kodesupp) ? $viewParams['SingleItem']->kodesupp : '' ?>" />
+		    <span id="NamaSupplier"></span>
+		    <br />
+		<fieldset>
+			<legend>Item</legend>
+		    <label>Nomor</label>
+		    <span id="ItemNumber">1</span><br />
+		    <label for="Barang">Barang</label>
+		    <input type="text" name="Barang" id="Barang" placeholder="kode / nama barang" class="InlineImportant" required form="ItemForm" value="<?php echo isset($viewParams['SingleItem']->kodebrg) ? $viewParams['SingleItem']->kodebrg : '' ?>" />
+		    <span id="NamaBarang"></span>
+		    <br />
+		    <label for="Harga">Harga</label>
+		    <input type="text" name="Harga" id="Harga" class="Currency" required form="ItemForm" value="<?php echo isset($viewParams['SingleItem']->harga) ? $viewParams['SingleItem']->harga : '' ?>" /><br />
+		    <label for="Jumlah">Jumlah</label>
+		    <input type="text" name="Jumlah" id="Jumlah" class="Integer" required form="ItemForm" value="<?php echo isset($viewParams['SingleItem']->jumlah) ? $viewParams['SingleItem']->jumlah : '' ?>" /><br />
+		    <label>Nilai</label>
+		    <span id="Nilai">0</span><br />
+		    <label>&nbsp;</label>
+			<input id="ItemSubmitButton" type="submit" form="ItemForm" value="Tambah" />
+			<input id="ItemResetButton" type="reset" form="ItemForm" value="Batal" />
+			<br />
+			<br />
+	<table id="ItemTable">
+		<thead>
+			<tr>
+			    <th rowspan="2">No</th>
+			    <th colspan="2">Barang</th>
+			    <th rowspan="2">Harga</th>
+			    <th rowspan="2">Jumlah</th>
+			    <th rowspan="2">Nilai</th>
+			    <th rowspan="2"></th>
+			</tr>
+			<tr>
+			    <th>Kode</th>
+			    <th>Nama</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="BarangResult" class="ResultRow">
+				<td colspan="5">Bayar</td>
+				<td id="Bayar">0</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+		</fieldset>
         </fieldset>
         <footer>
-            <input type="submit" value="Simpan">
-            <input type="reset" value="Reset">
-        </footer>
-    </form>
+            <input type="submit" value="Simpan" id="SimpanButton" form="DataForm">
+            <input type="reset" value="Reset" id="ResetButton" form="DataForm">
     <div id="DataTableWrap">
         <div>
             <form id="SearchForm" action="" method="post">
                 <fieldset>
-                    <input type="text" name="text" id="Search" class="Search" placeholder="Nomor faktur, nama barang atau nama supplier" value="<?php echo isset($viewParams['SearchKeyword']) ? $viewParams['SearchKeyword'] : '' ?>" />
+                    <input type="text" name="text" id="Search" class="Search" placeholder="Nomor faktur, nama supplier, atau tanggal" value="<?php echo isset($viewParams['SearchKeyword']) ? $viewParams['SearchKeyword'] : '' ?>" />
                     <input type="submit" id="SearchButton" value="Cari"/>
                 </fieldset>
 
@@ -40,39 +74,17 @@
             <thead>
                 <tr>
                     <th rowspan="2">No.Faktur</th>
-                    <th colspan="2">Barang</th>
-                    <th colspan="2">Supplier</th>
                     <th rowspan="2">Tanggal</th>
-                    <th rowspan="2">Harga</th>
-                    <th rowspan="2">Jumlah</th>
+                    <th colspan="2">Supplier</th>
+                    <th rowspan="2">Nilai</th>
+                    <th rowspan="2"></th>
                 </tr>
                 <tr>
-                    <th>Kode</th>
-                    <th>Nama</th>
                     <th>Kode</th>
                     <th>Nama</th>
                 </tr>
             </thead>
             <tbody>
-                <?php
-                foreach ($viewParams['Statement'] as $row) {
-                    echo '<tr>
-			<!--<th><input type="checkbox" name="RowCheckbox" /></th>-->
-			<td>', $row[PembelianModel::KODE_FIELD], '</td>
-			<td>', $row['kodebrg'], '</td>
-			<td>', $row['namabrg'], '</td>
-			<td>', $row['kodesupp'], '</td>
-			<td>', $row['namasupp'], '</td>
-			<td>', (new DateTime($row['tanggal']))->format(INDONESIAN_DATE_FORMAT), '</td>
-			<td>', $row['harga'], '</td>
-			<td>', $row['jumlah'], '</td>
-			<td>
-				<button onclick="delData(', $row[PembelianModel::KODE_FIELD], ')" >Hapus</button>
-				<button onclick="editData(', $row[PembelianModel::KODE_FIELD], ')">Ubah</button>
-			</td>
-		</tr>';
-                }
-                ?>
             </tbody>
         </table>
     </div>

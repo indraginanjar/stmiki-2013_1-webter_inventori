@@ -9,9 +9,9 @@ class PenjualanController extends AgregateController {
 
 	private $_Model;
 
-	function __construct(){
+	function __construct($controllerActionIndex){
 		$this->_Model = new PenjualanModel();
-		parent::__construct('Penjualan', $this->_Model, array('barang' => new BarangModel(), 'customer'=> new CustomerModel()));
+		parent::__construct('Penjualan', $this->_Model, array('barang' => new BarangModel(), 'customer'=> new CustomerModel()), $controllerActionIndex);
 	}
 
 	function ActionPenjualan() {

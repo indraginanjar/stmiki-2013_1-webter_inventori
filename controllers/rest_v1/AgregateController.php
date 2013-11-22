@@ -11,10 +11,10 @@ class AgregateController extends SingleKeyController {
 	}
 
 	function ActionIndex() {
+		parent::ActionIndex();
 		$Statement = $this->GetModel()->SelectViewAll();
 		$Param = array('Statement' => $Statement);
 		$Param = array_merge($Param, $this->GetOtherModelsSelectAllStatement());
-		$this->ShowCommonView($Param);
 	}
 
 	function GetOtherModels(){

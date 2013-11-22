@@ -24,29 +24,29 @@ class SingleKeyModel {
 */
 /*	
 	function InsertOrUpdate(array $values) {
-		$sql = 'insert into ' . $this->_TableName . '(';
+		$Sql = 'insert into ' . $this->_TableName . '(';
 		foreach($this->_FieldList as $Field){
-			$sql .= $Field . ',';
+			$Sql .= $Field . ',';
 		}
-		$sql = trim($sql, ',');
-		$sql .= ') values ( ';
+		$Sql = trim($Sql, ',');
+		$Sql .= ') values ( ';
 		foreach($this->_FieldList as $Field){
-			$sql .= ':'.$Field . ',';
+			$Sql .= ':'.$Field . ',';
 		}
-		$sql .=	'on duplicate key update ';
+		$Sql .=	'on duplicate key update ';
 		foreach($this->_FieldList as $Field){
-			$sql .= $Field .' = :'.$Field . ',';
+			$Sql .= $Field .' = :'.$Field . ',';
 		}
-		$sql = trim($sql, ',');
+		$Sql = trim($Sql, ',');
 		
-		$statement = $this->_DbConnection->prepare($sql);
+		$Statement = $this->_DbConnection->prepare($Sql);
 
-		if(!$statement) die($this->_DbConnection->errorInfo()[2]);
+		if(!$Statement) die($this->_DbConnection->errorInfo()[2]);
 
 
 /*
 
-		$execution = $statement->execute(array(':'.$this->_KeyField => $barang->Kode
+		$Execution = $Statement->execute(array(':'.$this->_KeyField => $barang->Kode
 					, ':barcode' => $barang->Barcode
 					, ':namabrg' => $barang->Nama
 					, ':satuan' => $barang->Satuan
@@ -55,86 +55,104 @@ class SingleKeyModel {
 					)
 				);
 
-		if(!$execution) die($statement->errorInfo()[2]);
+		if(!$Execution) die($Statement->errorInfo()[2]);
 
 
 	}
 */
 
 	function DeleteByKey($key){
-		$sql = 'delete from '. $this->_TableName .' where '.$this->_KeyField.' = :'.$this->_KeyField;
+		$Sql = 'delete from '. $this->_TableName .' where '.$this->_KeyField.' = :'.$this->_KeyField;
 
-		$statement = $this->_DbConnection->prepare($sql);
+		$Statement = $this->_DbConnection->prepare($Sql);
 
-		if(!$statement) die($this->_DbConnection->errorInfo()[2]);
+		assert($Statement, $this->_DbConnection->errorInfo()[2]);
+		if($this->_DbConnection->errorCode() != '00000'){
+			return false;
+		}
 
-		$execution = $statement->execute(array(':'.$this->_KeyField => $key));
+		$Execution = $Statement->execute(array(':'.$this->_KeyField => $key));
 
-		if(!$execution) die($statement->errorInfo()[2]);
+		assert($Execution, $Statement->errorInfo()[2]);
+		if($Statement->errorCode() != '00000'){
+			return false;
+		}
+		return $Statement;
 	}
 
 	function SelectAll() {
-		$sql = 'select * from '. $this->_TableName;
-		$statement = $this->_DbConnection->prepare($sql);
+		$Sql = 'select * from '. $this->_TableName;
+		$Statement = $this->_DbConnection->prepare($Sql);
 
-		if(!$statement) die($this->_DbConnection->errorInfo()[2]);
+		assert($Statement, $this->_DbConnection->errorInfo()[2]);
+		if($this->_DbConnection->errorCode() != '00000'){
+			return false;
+		}
+		$Execution = $Statement->execute();
 
-		$execution = $statement->execute();
-
-		if(!$execution) die($statement->errorInfo()[2]);
-		return $statement;
+		assert($Execution, $Statement->errorInfo()[2]);
+		if($Statement->errorCode() != '00000'){
+			return false;
+		}
+		return $Statement;
 	}
 
 	function SelectByKey($key){
-		$sql = 'select * from '. $this->_TableName .' where '.$this->_KeyField.' = :'.$this->_KeyField;
-		$statement = $this->_DbConnection->prepare($sql);
+		$Sql = 'select * from '. $this->_TableName .' where '.$this->_KeyField.' = :'.$this->_KeyField;
+		$Statement = $this->_DbConnection->prepare($Sql);
 
-		if(!$statement) die($this->_DbConnection->errorInfo()[2]);
+		assert($Statement, $this->_DbConnection->errorInfo()[2]);
+		if($this->_DbConnection->errorCode() != '00000'){
+			return false;
+		}
 
-		$execution = $statement->execute(array(':'.$this->_KeyField => $key));
+		$Execution = $Statement->execute(array(':'.$this->_KeyField => $key));
 
-		if(!$execution) die($statement->errorInfo()[2]);
-		return $statement;
+		assert($Execution, $Statement->errorInfo()[2]);
+		if($Statement->errorCode() != '00000'){
+			return false;
+		}
+		return $Statement;
 
 	}
 
 	function SelectFilteredByKey($key){
-		$sql = 'select *
+		$Sql = 'select *
 from '. $this->_TableName .' 
 where '.$this->_KeyField.' like :'.$this->_KeyField;
 
-		$statement = $this->_DbConnection->prepare($sql);
+		$Statement = $this->_DbConnection->prepare($Sql);
 
-		if(!$statement) die($this->_DbConnection->errorInfo()[2]);
+		if(!$Statement) die($this->_DbConnection->errorInfo()[2]);
 
 		$key = '%' . $key . '%';
 
-		$execution = $statement->execute(array(':'.$this->_KeyField => $key));
+		$Execution = $Statement->execute(array(':'.$this->_KeyField => $key));
 
-		if(!$execution) die($statement->errorInfo()[2]);
-		return $statement;
+		if(!$Execution) die($Statement->errorInfo()[2]);
+		return $Statement;
 
 	}
 
 	function SelectFilteredByFields(array $fields, $value){
-		$sql = 'select *
+		$Sql = 'select *
 from '. $this->_TableName .' 
 where ';
 		foreach($fields as $Field) {
-			$sql .= $Field . ' like :value or ';
+			$Sql .= $Field . ' like :value or ';
 		}
-		$sql = rtrim($sql, ' or ');
+		$Sql = rtrim($Sql, ' or ');
 
-		$statement = $this->_DbConnection->prepare($sql);
+		$Statement = $this->_DbConnection->prepare($Sql);
 
-		if(!$statement) die($this->_DbConnection->errorInfo()[2]);
+		if(!$Statement) die($this->_DbConnection->errorInfo()[2]);
 
 		$value = '%' . $value . '%';
 
-		$execution = $statement->execute(array(':value' => $value));
+		$Execution = $Statement->execute(array(':value' => $value));
 
-		if(!$execution) die($statement->errorInfo()[2]);
-		return $statement;
+		if(!$Execution) die($Statement->errorInfo()[2]);
+		return $Statement;
 	}
 
 	function GetDbConnection(){

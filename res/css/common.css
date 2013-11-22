@@ -69,7 +69,7 @@ label {
     width:6em;
 }
 
-#DataForm input[type=text] {
+input[type=text] {
     display:block;
     background-color: #FEFEFE;
 }
@@ -99,7 +99,7 @@ footer{
     border-top: 1px solid #FFFFFF;
     overflow: hidden;
     padding: 15px 20px 15px 20px;
-    float: right;
+    text-align:right;
 }
 
 .box{
@@ -126,7 +126,8 @@ footer{
     width: 30em;
 }
 #Search{
-    width: 30em;
+	width: 30em;
+	display:inline;
 }
 .ShortName{
     width: 30em;
@@ -154,9 +155,6 @@ footer{
 
 .Integer {
     width: 5.7em;
-}
-.Search {
-    width:30em;
 }
 textarea {
     width: 30em;
@@ -203,3 +201,29 @@ textarea {
 #about{
     width: 600px;
 }
+
+#ItemTable {
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse:collapse;
+    width: 100%;
+
+}
+
+#ItemTable th {
+    font-size:1em;
+    text-align:center;
+    padding-top:5px;
+    padding-bottom:4px;
+    background-color:gray;
+    color:#ffffff;
+}
+#ItemTable td, #ItemTable th {
+    font-size:0.8em;
+    border:1px solid #E0E1E2;
+    padding:3px 7px 2px 7px;
+}
+
+.ResultRow {
+	font-weight:bold;
+}
+

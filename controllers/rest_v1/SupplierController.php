@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__) . '/SingleKeyController.php';
-require_once dirname(__FILE__) . '/../models/SupplierModel.php';
-require_once dirname(__FILE__) . '/../models/SupplierStruct.php';
+require_once dirname(__FILE__) . '/../../models/SupplierModel.php';
+require_once dirname(__FILE__) . '/../../models/SupplierStruct.php';
 
 class SupplierController extends SingleKeyController {
 

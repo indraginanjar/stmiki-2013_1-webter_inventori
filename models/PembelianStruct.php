@@ -5,31 +5,34 @@ require_once dirname(__FILE__) . '/../inc/DateUtil.php';
 
 class PembelianStruct {
 	public $Nomor;
-	public $KodeBarang;
+	public $KodeBarangList;
 	public $KodeSupplier;
 	public $Tanggal;
-	public $Harga;
-	public $Jumlah;
+	public $HargaList;
+	public $JumlahList;
 
-	function SetAll($nomor, $kodeBarang, $kodeSupplier, $tanggal, $harga, $jumlah){
+	function SetAll($nomor, $kodeBarangList, $kodeSupplier, $tanggal, $hargaList, $jumlahList){
 		$this->Nomor = $nomor;
-		$this->KodeBarang = $kodeBarang;
+		$this->KodeBarangList = $kodeBarangList;
 		$this->KodeSupplier = $kodeSupplier;
 		$this->Tanggal = $tanggal;
-		$this->Harga = $harga;
-		$this->Jumlah = $jumlah;
+		$this->HargaList = $hargaList;
+		$this->JumlahList = $jumlahList;
 	}
 
-	function SetValueByPageParam($method){
-		$this->Nomor = PageParam::GetValue('nomor', $method, NULL);
-		$this->KodeBarang = PageParam::GetValue('barang', $method, NULL);
-		$this->KodeSupplier = PageParam::GetValue('supplier', $method, NULL);
-		//$this->Tanggal = DateTime::createFromFormat(INDONESIAN_DATE_FORMAT, PageParam::GetValue('tanggal', $method, NULL))->format(MYSQL_DATE_FORMAT);
-		$this->Tanggal = DateUtil::ChangeStringFormat(PageParam::GetValue('tanggal', $method, NULL)
+	function SetValueByPageParam($method = POST){
+		$this->Nomor = PageParam::GetValue('Nomor', $method);
+		$this->Tanggal = DateUtil::ChangeStringFormat(PageParam::GetValue('Tanggal', $method, NULL)
 				, DateUtil::IndonesiaDefaultDateFormat
 				, DateUtil::MysqlDefaultDateFormat
 				);
-		$this->Harga = PageParam::GetValue('harga', $method, NULL);
-		$this->Jumlah = PageParam::GetValue('jumlah', $method, NULL);
+		$this->KodeBarangList = PageParam::GetValue('BarangList', $method, Array());
+		$this->KodeSupplier = PageParam::GetValue('Supplier', $method);
+		$this->HargaList = PageParam::GetValue('HargaList', $method, Array());
+		$this->JumlahList = PageParam::GetValue('JumlahList', $method, Array());
 	}
+	
+	function GetItemCount(){
+		return count($this->KodeBarangList);
+	}	
 }?>

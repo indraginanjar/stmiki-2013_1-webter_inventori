@@ -1,18 +1,18 @@
 <?php
-require_once dirname(__FILE__) . '/../inc/IController.php';
-require_once dirname(__FILE__) . '/../inc/Controller.php';
-require_once dirname(__FILE__) . '/../Config.php';
+require_once dirname(__FILE__) . '/../../inc/IController.php';
+require_once dirname(__FILE__) . '/../../inc/Controller.php';
 
-class MainController extends Controller implements IController {
+class RestController extends Controller implements IController {
 
-	function __construct(){
-		parent::__construct(0);
+	function __construct($controllerActionIndex) {
+		parent::__construct($controllerActionIndex);
 	}
 
-	function ActionIndex() {
-		$this->ActionBarang();	
+	function ActionIndex(){
+		header('Content-type: application/json');
+		header('HTTP/1.1 404 Not Found');
 	}
-
+	
 	function ActionSupplier() {
 		require_once dirname(__FILE__) . '/SupplierController.php';
 		$Controller = new SupplierController($this->GetActionToExecuteIndex());
@@ -23,8 +23,8 @@ class MainController extends Controller implements IController {
 		require_once dirname(__FILE__) . '/BarangController.php';
 		$Controller = new BarangController($this->GetActionToExecuteIndex());
 		$Controller->Run();
+		
 	}
-
 	function ActionCustomer() {
 		require_once dirname(__FILE__) . '/CustomerController.php';
 		$Controller = new CustomerController($this->GetActionToExecuteIndex());
@@ -42,16 +42,19 @@ class MainController extends Controller implements IController {
 		$Controller = new PenjualanController($this->GetActionToExecuteIndex());
 		$Controller->Run();
 	}
-	
-	function ActionRest() {
-		require_once dirname(__FILE__) . '/rest_v1/RestController.php';
-		$Controller = new RestController($this->GetActionToExecuteIndex());
-		$Controller->Run();
-	}
 
 	function ActionAbout(){
 		$AfterMenuPart = 'views/About-AfterMenu.php';	
 		include 'views/template/inventori.php';
 	}
+
+	function ActionVersion(){
+		exit('1.0');
+	}
+/*
+	function ActionRest(){
+		eval('$this->Action' . $this->GetParam()->GetAction($this->GetActionToExecuteIndex()) . '();');
+	}
+*/
 }
 ?>
