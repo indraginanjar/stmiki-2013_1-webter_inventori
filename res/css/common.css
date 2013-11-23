@@ -18,11 +18,13 @@ body{
 #header{
     padding: 0px;
     margin: 0px;
+    
 }
 #header img{
     width: 1000px;
     padding: 0px;
     margin: 0px;
+    border-radius: 5px 5px 0px 0px;
 }
 #MainMenu{
     margin-top: -6px;

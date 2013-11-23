@@ -61,7 +61,8 @@
                     </div>
                     <div clas="text-wrap">
                         <p>
-
+                            Ilmu itu adalah perhiasan yang paling menawan dan tiada tandinganya bagi orang yang
+                            benar-benar yang ikhlas mencarinya.
                         </p>
                     </div>
 
