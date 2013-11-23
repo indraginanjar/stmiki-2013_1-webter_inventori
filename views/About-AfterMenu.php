@@ -61,7 +61,22 @@
                     </div>
                     <div clas="text-wrap">
                         <p>
+                            Ilmu itu adalah perhiasan yang paling menawan dan tiada tandinganya bagi orang yang
+                            benar-benar yang ikhlas mencarinya.
+                        </p>
+                    </div>
 
+                </div>
+                <h3>Nansar (111100064)</h3>
+                <div class="list-profil">
+                    <div class="image-wrap">
+                        <a href="http://facebook.com/nansar.tanjung" target="_blank">
+                            <img src="<?php echo $Config->BaseUrl ?>/res/img/putratanjung.jpg" width="70" height="100">
+                        </a>
+                    </div>
+                    <div clas="text-wrap">
+                        <p>
+                            
                         </p>
                     </div>
 
