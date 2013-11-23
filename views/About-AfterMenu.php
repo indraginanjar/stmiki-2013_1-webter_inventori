@@ -67,6 +67,20 @@
                     </div>
 
                 </div>
+                <h3>Nansar (111100064)</h3>
+                <div class="list-profil">
+                    <div class="image-wrap">
+                        <a href="http://facebook.com/nansar.tanjung" target="_blank">
+                            <img src="<?php echo $Config->BaseUrl ?>/res/img/putratanjung.jpg" width="70" height="100">
+                        </a>
+                    </div>
+                    <div clas="text-wrap">
+                        <p>
+                            
+                        </p>
+                    </div>
+
+                </div>
             </div>
 
         </fieldset>
