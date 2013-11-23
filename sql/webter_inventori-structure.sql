@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 3.5.8.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 10, 2013 at 04:52 AM
--- Server version: 5.6.12-log
--- PHP Version: 5.4.16
+-- Generation Time: Nov 23, 2013 at 10:41 AM
+-- Server version: 5.5.34-0ubuntu0.13.04.1-log
+-- PHP Version: 5.4.9-4ubuntu2.3
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `webter_inventori`
 --
-CREATE DATABASE IF NOT EXISTS `webter_inventori` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE `webter_inventori` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `webter_inventori`;
 
 DELIMITER $$
@@ -58,10 +58,10 @@ CREATE TABLE IF NOT EXISTS `tbbarang` (
   `namabrg` varchar(71) NOT NULL,
   `satuan` varchar(10) NOT NULL,
   `harga` bigint(20) unsigned NOT NULL,
-  `stok` int(10) unsigned NOT NULL,
+  `stok` int(10) NOT NULL,
   PRIMARY KEY (`kodebrg`),
   UNIQUE KEY `barcode` (`barcode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
 -- --------------------------------------------------------
 
@@ -76,10 +76,10 @@ CREATE TABLE IF NOT EXISTS `tbbeli` (
   `tanggal` date NOT NULL,
   `harga` double unsigned NOT NULL,
   `jumlah` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`nofaktur`),
+  PRIMARY KEY (`nofaktur`,`kodebrg`,`kodesupp`),
   KEY `kodebrg` (`kodebrg`),
   KEY `kodesupp` (`kodesupp`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 --
 -- Triggers `tbbeli`
@@ -88,7 +88,7 @@ DROP TRIGGER IF EXISTS `del_beli`;
 DELIMITER //
 CREATE TRIGGER `del_beli` AFTER DELETE ON `tbbeli`
  FOR EACH ROW begin
-update tbbarang set stok=cast(stok as decimal) - old.jumlah
+update tbbarang set stok=stok - old.jumlah
 where kodebrg=old.kodebrg;
 end
 //
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `tbcustomer` (
   `alamat` text NOT NULL,
   `telp` varchar(20) NOT NULL,
   PRIMARY KEY (`kodecst`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `tbjual` (
   PRIMARY KEY (`nofaktur`),
   KEY `kodecst` (`kodecst`),
   KEY `kodebrg` (`kodebrg`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
 
 --
 -- Triggers `tbjual`
@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `tbsuplier` (
   `alamat` text NOT NULL,
   `telp` varchar(20) NOT NULL,
   PRIMARY KEY (`kodesupp`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 

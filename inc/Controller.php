@@ -57,6 +57,11 @@ abstract class Controller implements IController {
 				return;
 			}
 		}
+		$Method = ucfirst($_SERVER['REQUEST_METHOD']);
+		if(method_exists($this, 'Handle' . $Method)){
+			eval('$this->Handle'. $Method .'();');
+			return;
+		}
 		$this->ActionIndex();
 	}
 }?>

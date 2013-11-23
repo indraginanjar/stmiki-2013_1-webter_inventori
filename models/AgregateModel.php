@@ -7,74 +7,87 @@ require_once dirname(__FILE__) . '/SingleKeyModel.php';
 class AgregateModel extends SingleKeyModel {
 
 	private $_ViewName;
+	private $_KeyField;
+	private $_TableName;
+	private $_DbConnection;
 
 	function __construct($tableName, $keyField, $connection, $viewName) {
 		parent::__construct($tableName, $keyField, $connection);
 		$this->_ViewName = $viewName;
+		$this->_KeyField = $this->GetKeyField();
+		$this->_TableName = $this->GetTableName();
+		$this->_DbConnection = $this->GetDbConnection();
 	}
 	
 	function SelectViewAll() {
-		$sql = 'select * from '. $this->_ViewName;
-		$statement = $this->GetDbConnection()->prepare($sql);
+		$Sql = 'select * from '. $this->_ViewName;
+		$Statement = $this->GetDbConnection()->prepare($Sql);
 
-		if(!$statement) die($this->GetDbConnection()->errorInfo()[2]);
+		if(!$Statement) die($this->GetDbConnection()->errorInfo()[2]);
 
-		$execution = $statement->execute();
+		$Execution = $Statement->execute();
 
-		if(!$execution) die($statement->errorInfo()[2]);
-		return $statement;
+		if(!$Execution) die($Statement->errorInfo()[2]);
+		return $Statement;
 	}
 
 	function SelectViewByKey($key){
-		$sql = 'select * from '. $this->_ViewName .' where '.$this->_KeyField.' = :'.$this->_KeyField;
-		$statement = $this->GetDbConnection()->prepare($sql);
+		$Sql = 'select * from '. $this->_ViewName .' where '.$this->_KeyField.' = :'.$this->_KeyField;
+		$Statement = $this->GetDbConnection()->prepare($Sql);
 
-		if(!$statement) die($this->GetDbConnection()->errorInfo()[2]);
+		assert($Statement, $this->_DbConnection->errorInfo()[2]);
+		if($this->_DbConnection->errorCode() != '00000'){
+			return false;
+		}
 
-		$execution = $statement->execute(array(':'.$this->_KeyField => $key));
+		$Execution = $Statement->execute(array(':'.$this->_KeyField => $key));
 
-		if(!$execution) die($statement->errorInfo()[2]);
-		return $statement;
+		assert($Execution, $Statement->errorInfo()[2]);
+		if($Statement->errorCode() != '00000'){
+			return false;
+		}
+
+		return $Statement;
 
 	}
 
 	function SelectViewFilteredByKey($key){
-		$sql = 'select *
+		$Sql = 'select *
 from '. $this->_ViewName .' 
 where '.$this->_KeyField.' like :'.$this->_KeyField;
 
-		$statement = $this->GetDbConnection()->prepare($sql);
+		$Statement = $this->GetDbConnection()->prepare($Sql);
 
-		if(!$statement) die($this->GetDbConnection()->errorInfo()[2]);
+		if(!$Statement) die($this->GetDbConnection()->errorInfo()[2]);
 
 		$key = '%' . $key . '%';
 
-		$execution = $statement->execute(array(':'.$this->_KeyField => $key));
+		$Execution = $Statement->execute(array(':'.$this->_KeyField => $key));
 
-		if(!$execution) die($statement->errorInfo()[2]);
-		return $statement;
+		if(!$Execution) die($Statement->errorInfo()[2]);
+		return $Statement;
 
 	}
 
 	function SelectViewFilteredByFields(array $fields, $value){
-		$sql = 'select *
+		$Sql = 'select *
 from '. $this->_ViewName .' 
 where ';
 		foreach($fields as $Field) {
-			$sql .= $Field . ' like :value or ';
+			$Sql .= $Field . ' like :value or ';
 		}
-		$sql = rtrim($sql, ' or ');
+		$Sql = rtrim($Sql, ' or ');
 
-		$statement = $this->GetDbConnection()->prepare($sql);
+		$Statement = $this->GetDbConnection()->prepare($Sql);
 
-		if(!$statement) die($this->GetDbConnection()->errorInfo()[2]);
+		if(!$Statement) die($this->GetDbConnection()->errorInfo()[2]);
 
 		$value = '%' . $value . '%';
 
-		$execution = $statement->execute(array(':value' => $value));
+		$Execution = $Statement->execute(array(':value' => $value));
 
-		if(!$execution) die($statement->errorInfo()[2]);
-		return $statement;
+		if(!$Execution) die($Statement->errorInfo()[2]);
+		return $Statement;
 
 	}
 

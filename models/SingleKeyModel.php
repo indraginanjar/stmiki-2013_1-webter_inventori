@@ -158,5 +158,13 @@ where ';
 	function GetDbConnection(){
 		return $this->_DbConnection;
 	}
+
+	function GetKeyField(){
+		return $this->_KeyField;
+	}
+
+	function GetTableName(){
+		return $this->_TableName;
+	}
 }
 ?>

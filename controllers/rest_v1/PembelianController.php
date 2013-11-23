@@ -20,5 +20,6 @@ class PembelianController extends AgregateController {
 	function ActionPembelian() {
 		$this->ActionIndex();
 	}
+
 }
 ?>

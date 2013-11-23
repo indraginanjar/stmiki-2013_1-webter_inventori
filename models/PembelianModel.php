@@ -20,11 +20,13 @@ class PembelianModel extends AgregateModel {
 
 	
 	function InsertOrUpdate(PembelianStruct $pembelian) {
-		$Row = $this->_DbConnection->query('select max(nofaktur) as nofaktur from '. PembelianModel::TABLE_NAME);
-		if(!$Row) {
-			return false;
+		if(!is_numeric($pembelian->Nomor)){
+			$Row = $this->_DbConnection->query('select max(nofaktur) as nofaktur from '. PembelianModel::TABLE_NAME);
+			if(!$Row) {
+				return false;
+			}
+			$pembelian->Nomor = $Row->fetchObject()->nofaktur + 1;
 		}
-		$pembelian->Nomor = $Row->fetchObject()->nofaktur + 1;
 		$Sql = 'insert into '. PembelianModel::TABLE_NAME .' ('.PembelianModel::KODE_FIELD.'
 	, kodebrg
 	, kodesupp
@@ -104,6 +106,38 @@ from '. PembelianModel::TABLE_NAME .'
 left join tbsuplier
 	on tbsuplier.kodesupp = tbbeli.kodesupp
 where nofaktur = :nofaktur
+group by nofaktur
+	, kodesupp
+	, tanggal
+';
+		$Parameter = array(':nofaktur' => $noFaktur);
+		$Statement = $this->_DbConnection->prepare($Sql);
+		$Execution = $Statement->execute($Parameter);
+		assert($Execution, $Statement->errorInfo()[2]);
+		if($Statement->errorCode() != '00000'){
+			return false;
+		}
+		if($Statement->rowCount() < 1) {
+			assert(false, str_replace(array_keys($Parameter), array_values($Parameter), $Sql));
+			return false;
+		}
+		return $Statement;
+	}
+
+	function SelectByKey($key){
+		return $this->SelectByNoFaktur($key);
+	}
+
+	function SelectFilteredByNoFakturOrNamaSupplier($noFaktur){
+		$Sql = 'select nofaktur
+	, tanggal
+	, tbbeli.kodesupp
+	, namasupp
+	, sum(harga * jumlah) as nilai
+from '. PembelianModel::TABLE_NAME .'
+left join tbsuplier
+	on tbsuplier.kodesupp = tbbeli.kodesupp
+where nofaktur like :nofaktur or namasupp like :nofaktur
 group by nofaktur
 	, kodesupp
 	, tanggal

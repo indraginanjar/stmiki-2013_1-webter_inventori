@@ -1,6 +1,27 @@
 <script>
     $('#SearchButton').click(function() {
-        $('#SearchForm').prop('action', '<?php echo $this->GetPageUrl() ?>/search/' + $('#Search').val());
+	jQuery.ajax({
+		async:"true",
+        	type: "GET",
+        	url: "./Rest/Pembelian/" + $('#Search').val(),
+        	contentType: "application/json; charset=utf-8",
+        	dataType: "json",
+		success: function (data, status, jqXHR) {
+			alert(JSON.stringify(data));
+			DrawDataTable(data);
+		},
+	    
+		error: function (jqXHR, status) {           
+		     // error handler
+		       //$('body').append("aaaaa " + JSON.stringify(jqXHR.statusCode()));
+		},
+
+		complete: function (jqXHR, status) {
+		}
+	});
+
+//        $('#SearchForm').prop('action', '<?php echo $this->GetPageUrl() ?>/search/' + $('#Search').val());
+	return false;
     });
 
 
@@ -166,16 +187,17 @@ $('#Tanggal').blur(function(){
 	}
 });
 
-    function delData(id) {
-        if (!window.confirm("Data pembelian dengan nomor faktur '" + id + "' ini akan dihapus.\nLanjutkan menghapus?")) {
-            return;
-        }
-        window.location = "<?php echo $this->GetPageUrl() ?>/delete/" + id;
-    }
+function delData(id) {
+if (!window.confirm("Data pembelian dengan nomor faktur '" + id + "' ini akan dihapus.\nLanjutkan menghapus?")) {
+    return;
+}
+window.location = "<?php echo $this->GetPageUrl() ?>/delete/" + id;
+}
 
-    function editData(id) {
-        window.location = "<?php echo $this->GetPageUrl() ?>/edit/" + id;
-    }
+function editData(id) {
+window.location = "<?php echo $this->GetPageUrl() ?>/edit/" + id;
+}
+
 function Item() {
 	var Barang = $('#Barang').val();
 }
@@ -207,7 +229,7 @@ $('#ItemSubmitButton').click(function(){
 		HargaList[Index] = $('#Harga').val();
 		JumlahList[Index] = $('#Jumlah').val();
 		NilaiList[Index] = parseInt($('#Harga').val()) * parseInt($('#Jumlah').val());
-		$('#ItemSubmitButton').val = 'Tambah';
+		$('#ItemSubmitButton').val('Tambah');
 	}
 	else {
 		BarangList.push($('#Barang').val());
@@ -280,12 +302,11 @@ function RefreshDataTable() {
 		},
 	    
 		error: function (jqXHR, status) {
-		     // error handler
-		     //  $('body').append("aaaaa " + JSON.stringify(jqXHR.statusCode()));
 		}
 
 	});
 }
+
 
 function DrawDataTable(data){
 	$('#DataTable tbody').html(null);
@@ -360,6 +381,33 @@ function EditData(id){
 		error: function (jqXHR, status) {           
 		     // error handler
 		       //$('body').append("aaaaa " + JSON.stringify(jqXHR.statusCode()));
+		},
+
+		complete: function (jqXHR, status) {
+			jQuery.ajax({
+				async:"true",
+				type: "GET",
+				url: "./Rest/Pembelian/" + id + '/Item',
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function (data, status, jqXHR) {
+					BarangList = Array();
+					HargaList = Array();
+					JumlahList = Array();
+					NamaBarangList = Array();
+					NilaList = Array();
+					for(var i = 0; i < data.length; i++){
+						BarangList.push(data[0].kodebrg);
+						NamaBarangList.push(data[0].namabrg);
+						JumlahList.push(data[0].jumlah);
+						HargaList.push(data[0].harga);
+						NilaiList.push(data[0].jumlah * data[0].harga);
+					}
+					$('#ItemNumber').html(i + 1);
+					DrawItemTable();
+				}
+			});
+
 		}
 
 	});
@@ -422,6 +470,7 @@ function DrawItemTable(){
 $('#ItemResetButton').click(function(){
 	$('#NamaBarang').html(null);
 	$('#Nilai').html(0);
+	$('#ItemSubmitButton').val('Tambah');
 	document.getElementById('ItemForm').reset();
 });
 

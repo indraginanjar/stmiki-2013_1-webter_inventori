@@ -65,9 +65,9 @@
         </div>
         <div id="DataTableWrap">
             <div>
-                <form id="SearchForm" action="" method="post">
+                <form id="SearchForm" action="javascript:void(0)" method="post">
                     <fieldset>
-                        <input type="text" name="text" id="Search" class="Search" placeholder="Nomor faktur, nama supplier, atau tanggal" value="<?php echo isset($viewParams['SearchKeyword']) ? $viewParams['SearchKeyword'] : '' ?>" />
+                        <input type="text" name="text" id="Search" class="Search" placeholder="Nomor faktur" value="<?php echo isset($viewParams['SearchKeyword']) ? $viewParams['SearchKeyword'] : '' ?>" />
                         <input type="submit" id="SearchButton" value="Cari"/>
                     </fieldset>
 
