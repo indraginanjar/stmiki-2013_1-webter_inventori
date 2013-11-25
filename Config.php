@@ -1,7 +1,7 @@
 <?php
 class Config {
 	// Jangan masukkan ikut sertakan nama/domain host/server kedalam $BaseUrl
-	public $BaseUrl = '/kuliah/2013-1%20Web%20Terapan/20131020/www/';
+	//public $BaseUrl = '/kuliah/2013-1%20Web%20Terapan/20131020/www/';
 	public $DbHost = '127.0.0.1';
 	public $DbUser = 'root';
 	public $DbPassword = 'root';
