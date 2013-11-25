@@ -17,8 +17,9 @@ class SingleKeyController extends Controller implements IController {
 	function __construct($pageName, $model, $controllerActionIndex){
 		parent::__construct($controllerActionIndex);
 		$this->_Config = new Config();
+		global $BaseUrl;
 		$this->_PageName = $pageName;
-		$this->_PageUrl = $this->_Config->BaseUrl . 'index.php/' . $this->_PageName;
+		$this->_PageUrl = $BaseUrl . 'index.php/' . $this->_PageName;
 		$this->_Model = $model;
 		$this->_Param = new PageParam();
 	}
