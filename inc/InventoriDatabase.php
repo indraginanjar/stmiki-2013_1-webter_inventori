@@ -8,6 +8,7 @@ class InventoriDatabase {
 		    $this->_Connection = new PDO($Dsn, $Config->DbUser, $Config->DbPassword);
 		} catch (PDOException $e) {
 		    echo 'Connection failed: ' . $e->getMessage();
+                    echo '<br>Atur configurasi pada file Config.php ';
 		}
 	}
 

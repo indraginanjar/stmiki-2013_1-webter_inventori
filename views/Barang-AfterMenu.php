@@ -58,7 +58,7 @@ $Config = new Config();
 			<td>', $row['namabrg'], '</td>
 			<td>', $row['satuan'], '</td>
 			<td>', $row['stok'], '</td>
-			<td>', $row['harga'], '</td>
+			<td>', number_format($row['harga'],0,'.','.'), '</td>
 			<td>
 				<button onclick="delData(', $row[BarangModel::KODE_FIELD], ')" >Hapus</button>
 				<button onclick="editData(', $row[BarangModel::KODE_FIELD], ')">Ubah</button>
