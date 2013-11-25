@@ -1,1 +1,1 @@
-<link rel="stylesheet" href="<?php echo $Config->BaseUrl ?>res/css/penjualan.css"/>
+<link rel="stylesheet" href="<?php echo $BaseUrl ?>res/css/penjualan.css"/>

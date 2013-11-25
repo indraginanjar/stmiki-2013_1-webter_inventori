@@ -1,5 +1,5 @@
 <div id="ContentWrap" >
-    <form class="box" id="about" action="<?php echo $Config->BaseUrl ?>index.php">
+    <form class="box" id="about" action="<?php echo $BaseUrl ?>index.php">
         <div id="FormHeader">
             <h2>About</h2>
         </div>
@@ -13,7 +13,7 @@
                 <div class="list-profil">
                     <div class="image-wrap">
                         <a href="http://gembira-ah.blogspot.com" target="_blank">
-                            <img src="<?php echo $Config->BaseUrl ?>/res/img/indraginanjar.jpg" width="70" height="100">
+                            <img src="<?php echo $BaseUrl ?>/res/img/indraginanjar.jpg" width="70" height="100">
                         </a>
                         <p>
 
@@ -28,7 +28,7 @@
                 <div class="list-profil">
                     <div class="image-wrap">
                         <a href="http://sugiarto.web.id" target="_blank">
-                            <img src="<?php echo $Config->BaseUrl ?>/res/img/sugiarto.jpg" width="70" height="100">
+                            <img src="<?php echo $BaseUrl ?>/res/img/sugiarto.jpg" width="70" height="100">
                         </a>
                     </div>
                     <div clas="text-wrap">
@@ -42,7 +42,7 @@
                 <div class="list-profil">
                     <div class="image-wrap">
                         <a href="http://adriyan.web.id" target="_blank">
-                            <img src="<?php echo $Config->BaseUrl ?>/res/img/adriyanto.jpg" width="70" height="100">
+                            <img src="<?php echo $BaseUrl ?>/res/img/adriyanto.jpg" width="70" height="100">
                         </a>
                     </div>
                     <div clas="text-wrap">
@@ -56,7 +56,7 @@
                 <div class="list-profil">
                     <div class="image-wrap">
                         <a href="http://rangpiliang.web.id" target="_blank">
-                            <img src="<?php echo $Config->BaseUrl ?>/res/img/zoelfadli.jpg" width="70" height="100">
+                            <img src="<?php echo $BaseUrl ?>/res/img/zoelfadli.jpg" width="70" height="100">
                         </a>
                     </div>
                     <div clas="text-wrap">
@@ -71,7 +71,7 @@
                 <div class="list-profil">
                     <div class="image-wrap">
                         <a href="http://facebook.com/nansar.tanjung" target="_blank">
-                            <img src="<?php echo $Config->BaseUrl ?>/res/img/putratanjung.jpg" width="70" height="100">
+                            <img src="<?php echo $BaseUrl ?>/res/img/putratanjung.jpg" width="70" height="100">
                         </a>
                     </div>
                     <div clas="text-wrap">

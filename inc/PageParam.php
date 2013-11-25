@@ -57,8 +57,8 @@ class PageParam {
 	}
 
 	function __construct() {
-		$Config = new Config();
-		$actionString = substr($_SERVER['REQUEST_URI'], strlen($Config->BaseUrl . 'index.php') - 1);
+		global $BaseUrl;
+		$actionString = substr($_SERVER['REQUEST_URI'], strlen($BaseUrl . 'index.php') - 1);
 		$actionString = rtrim($actionString, '/');
 		if(!empty($actionString)) {
 			$this->_Actions = explode('/', $actionString);
