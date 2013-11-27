@@ -36,13 +36,13 @@ jQuery.ajax({
 
 	success: function (data, status, jqXHR) {
 		DaftarBarang = '[';
-		for(var i = 0; i < data.length; i++){
+		for(var i = 0; i < data.entities.length; i++){
 			DaftarBarang += '{"label":"'
-					+ data[i].namabrg
+					+ data.entities[i].properties.namabrg
 					+ " : "
-					+ data[i].kodebrg
+					+ data.entities[i].properties.kodebrg
 					+ '", "value":"'
-					+ data[i].kodebrg
+					+ data.entities[i].properties.kodebrg
 					+ '"},'
 		}
 		DaftarBarang = DaftarBarang.substr(0, DaftarBarang.length - 1);
@@ -69,13 +69,13 @@ jQuery.ajax({
 
 	success: function (data, status, jqXHR) {
 		DaftarSupplier = '[';
-		for(var i = 0; i < data.length; i++){
+		for(var i = 0; i < data.entities.length; i++){
 			DaftarSupplier += '{"label":"'
-					+ data[i].namasupp
+					+ data.entities[i].properties.namasupp
 					+ " : "
-					+ data[i].kodesupp
+					+ data.entities[i].properties.kodesupp
 					+ '", "value":"'
-					+ data[i].kodesupp
+					+ data.entities[i].properties.kodesupp
 					+ '"},'
 		}
 		DaftarSupplier = DaftarSupplier.substr(0, DaftarSupplier.length - 1);
@@ -91,7 +91,7 @@ jQuery.ajax({
 	}
 });
 
-function PostInputSupplier(){
+function AfterInputSupplier(){
         var found = $.grep(DaftarSupplier, function(e) {
             return e.value === $('#Supplier').val();
         });
@@ -104,7 +104,7 @@ function PostInputSupplier(){
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data, status, jqXHR) {
-				$('#NamaSupplier').html(data[0].namasupp);
+				$('#NamaSupplier').html(data.properties.namasupp);
 				$('#Supplier')[0].setCustomValidity('');
 			},
 		    
@@ -127,7 +127,7 @@ function PostInputSupplier(){
 	}
 }
 
-function PostInputBarang(timpaHarga){
+function AfterInputBarang(timpaHarga){
         var found = $.grep(DaftarBarang, function(e) {
             return e.value === $('#Barang').val();
         });
@@ -141,9 +141,9 @@ function PostInputBarang(timpaHarga){
 			dataType: "json",
 			success: function (data, status, jqXHR) {
 				if(timpaHarga) {
-					$('#Harga').val(data[0].harga);
+					$('#Harga').val(data.properties.harga);
 				}
-				$('#NamaBarang').html(data[0].namabrg);
+				$('#NamaBarang').html(data.properties.namabrg);
 				$('#Barang')[0].setCustomValidity('');
 			},
 		    
@@ -164,11 +164,11 @@ function PostInputBarang(timpaHarga){
 
 
 $('#Barang').blur(function() {
-	PostInputBarang(true);	
+	AfterInputBarang(true);	
 });
 
 $('#Supplier').blur(function() {
-	PostInputSupplier();
+	AfterInputSupplier();
 });
 
 $('#Tanggal').blur(function(){
@@ -311,22 +311,22 @@ function RefreshDataTable() {
 function DrawDataTable(data){
 	$('#DataTable tbody').html(null);
 	var i = 0;
-	for(i; i < data.length; i++){
+	for(i; i < data.entities.length; i++){
 		$('#DataTable tbody').append(
 			'<tr><td>'
-			+ data[i].nofaktur
+			+ data.entities[i].properties.nofaktur
 			+ '</td><td>'
-			+ Iso8601DateToIndonesia(data[i].tanggal)
+			+ Iso8601DateToIndonesia(data.entities[i].properties.tanggal)
 			+ '</td><td>'
-			+ data[i].kodesupp
+			+ data.entities[i].properties.kodesupp
 			+ '</td><td>'
-			+ data[i].namasupp
+			+ data.entities[i].properties.namasupp
 			+ '</td><td>'
-			+ data[i].nilai
+			+ data.entities[i].properties.nilai
 			+ '</td><td><button onclick="DelData('
-			+ data[i].nofaktur
+			+ data.entities[i].nofaktur
 			+ ')">Hapus</button><button onclick="EditData('
-			+ data[i].nofaktur
+			+ data.entities[i].properties.nofaktur
 			+ ')">Edit</button>'
 			+ '</td></tr>'
 		//return JSON.stringify(data[i]);
@@ -370,7 +370,7 @@ function EditData(id){
 		success: function (data, status, jqXHR) {
 			$('#Nomor').val(data[0].nofaktur);
 			$('#Supplier').val(data[0].kodesupp);
-			PostInputSupplier();
+			AfterInputSupplier();
 			var Tanggal = data[0].tanggal;
 			var Arr = Tanggal.split('-');
 			Tanggal = Arr[2] + '/' + Arr[1] + '/' + Arr[0];
@@ -420,7 +420,7 @@ function EditItem(id){
 	$('#Jumlah').val(JumlahList[id]);
 	$('#Nilai').val(HargaList[id] * JumlahList[id]);
 	$('#ItemSubmitButton').val('Perbarui');
-	PostInputBarang(false);
+	AfterInputBarang(false);
 }
 
 function DelItem(id){

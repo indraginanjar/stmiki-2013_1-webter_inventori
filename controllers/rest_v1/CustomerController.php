@@ -1,16 +1,16 @@
 <?php
 require_once dirname(__FILE__) . '/SingleKeyController.php';
-require_once dirname(__FILE__) . '/../../models/SupplierModel.php';
-require_once dirname(__FILE__) . '/../../models/SupplierStruct.php';
+require_once dirname(__FILE__) . '/../../models/CustomerModel.php';
+require_once dirname(__FILE__) . '/../../models/CustomerStruct.php';
 
-class SupplierController extends SingleKeyController {
+class CustomerController extends SingleKeyController {
 
 	function __construct($controllerActionIndex){
-		$this->_Model = new SupplierModel();
-		parent::__construct('Supplier', $this->_Model, $controllerActionIndex);
+		$this->_Model = new CustomerModel();
+		parent::__construct('Customer', $this->_Model, $controllerActionIndex);
 	}
 
-	function ActionSupplier() {
+	function ActionCustomer() {
 		$this->ActionIndex();
 	}
 

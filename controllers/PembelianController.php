@@ -8,8 +8,6 @@ require_once dirname(__FILE__) . '/../inc/DateUtil.php';
 
 class PembelianController extends AgregateController {
 
-	private $_Model;
-
 	function __construct(){
 		$this->_Model = new PembelianModel();
 		parent::__construct('Pembelian', $this->_Model, array('barang' => new BarangModel(), 'supplier'=> new SupplierModel()), 2);

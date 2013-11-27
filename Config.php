@@ -8,5 +8,5 @@ class Config {
 	public $DbName = 'webter_inventori';
 	// Hanya set $Assert ke TRUE saat debugging program, nilai yang disarankan FALSE
 	// Jika di nilainya DEFAULT, aplikasi akan mengikuti settingan dari server
-	public $Assert = TRUE;
+	public $Assert = FALSE;
 }?>

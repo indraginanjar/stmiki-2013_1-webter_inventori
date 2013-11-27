@@ -8,9 +8,6 @@ require_once dirname(__FILE__) . '/../../inc/DateUtil.php';
 
 class PembelianController extends AgregateController {
 
-	private $_Model;
-	private $_Param;
-
 	function __construct($controllerActionIndex){
 		$this->_Model = new PembelianModel();
 		parent::__construct('Pembelian', $this->_Model, array('Barang' => new BarangModel(), 'Supplier'=> new SupplierModel()), $controllerActionIndex);
@@ -21,5 +18,38 @@ class PembelianController extends AgregateController {
 		$this->ActionIndex();
 	}
 
+	function GetUpdateFieldsClue($id){
+		$IdField = array(
+				'name' => 'Nomor'
+				, 'type' => 'number'
+		);
+		if($id != null) {
+			$IdField = array_merge($IdField, array('value' => $id));
+		}
+		$Clue = array('fields' => array((object) $IdField
+				, (object) array(
+						'name' => 'Tanggal'
+						, 'type' => 'text'
+						)
+				, (object) array(
+						'name' => 'BarangList[]'
+						, 'type' => 'text'
+						)
+				, (object) array(
+						'name' => 'KodeSupplier'
+						, 'type' => 'text'
+						)
+				, (object) array(
+						'name' => 'HargaList[]'
+						, 'type' => 'number'
+						)
+				, (object) array(
+						'name' => 'JumlahList[]'
+						, 'type' => 'number'
+						)
+				));
+		return $Clue;
+
+	}
 }
 ?>

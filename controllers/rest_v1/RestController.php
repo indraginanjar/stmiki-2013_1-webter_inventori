@@ -4,13 +4,44 @@ require_once dirname(__FILE__) . '/../../inc/Controller.php';
 
 class RestController extends Controller implements IController {
 
+	private $_RestRoot;
+
 	function __construct($controllerActionIndex) {
 		parent::__construct($controllerActionIndex);
+		$this->_RestRoot = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF']; 
 	}
 
 	function ActionIndex(){
+		//header('Content-type: application/vnd.siren+json');
 		header('Content-type: application/json');
-		header('HTTP/1.1 404 Not Found');
+		//header('Content-type: text/html');
+		$Response = (object) array(
+				'class' => array('collection')
+				, 'entities' => array(
+							(object) array (
+								'href' => $this->_RestRoot . 'barang'
+								)
+							, (object) array (
+								'href' => $this->_RestRoot . 'supplier'
+								)
+							, (object) array (
+								'href' => $this->_RestRoot . 'customer'
+								)
+							, (object) array (
+								'href' => $this->_RestRoot . 'pembelian'
+								)
+							, (object) array (
+								'href' => $this->_RestRoot . 'penjualan'
+								)
+						)
+				, 'links'=> array(
+						(object) array(
+								'rel' => array('self')
+								, 'href' => $this->_RestRoot
+								)
+						)
+				);
+		exit(json_encode($Response));
 	}
 	
 	function ActionSupplier() {

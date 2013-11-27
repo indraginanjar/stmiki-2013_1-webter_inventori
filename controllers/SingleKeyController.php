@@ -7,12 +7,11 @@ require_once dirname(__FILE__) . '/../Config.php';
 
 class SingleKeyController extends Controller implements IController {
 
-	private $_Config;
-	private $_PageUrl;
-	private $_DbConnection;
-	private $_Model;
-	private $_Param;
-	private $_PageName;
+	protected $_Config;
+	protected $_PageUrl;
+	protected $_DbConnection;
+	protected $_Model;
+	protected $_PageName;
 
 	function __construct($pageName, $model, $controllerActionIndex){
 		parent::__construct($controllerActionIndex);

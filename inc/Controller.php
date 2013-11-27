@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/../Config.php';
 abstract class Controller implements IController {
 	//public abstract function actionIndex();
 
-	private $_Param;
+	protected $_Param;
 
 	// menunjukkan index yang menjadi tempat controller ini
 	private $_ControllerActionIndex;
