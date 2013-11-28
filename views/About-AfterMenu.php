@@ -1,5 +1,5 @@
 <div id="ContentWrap" >
-    <form class="box" id="about" action="<?php echo $BaseUrl ?>index.php">
+    <form class="box" id="about" action="javascript:window.location='.'">
         <div id="FormHeader">
             <h2>About</h2>
         </div>

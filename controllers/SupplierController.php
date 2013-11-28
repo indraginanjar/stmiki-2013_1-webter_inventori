@@ -5,8 +5,6 @@ require_once dirname(__FILE__) . '/../models/SupplierStruct.php';
 
 class SupplierController extends SingleKeyController {
 
-	private $_Model;
-
 	function __construct($controllerActionIndex){
 		$this->_Model = new SupplierModel();
 		parent::__construct('Supplier', $this->_Model, $controllerActionIndex);

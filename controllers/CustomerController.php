@@ -5,8 +5,6 @@ require_once dirname(__FILE__) . '/../models/CustomerStruct.php';
 
 class CustomerController extends SingleKeyController {
 
-	private $_Model;
-
 	function __construct($controllerActionIndex){
 		$this->_Model = new CustomerModel();
 		parent::__construct('Customer', $this->_Model, $controllerActionIndex);

@@ -7,10 +7,8 @@ require_once dirname(__FILE__) . '/AgregateModel.php';
 
 
 class PenjualanModel extends AgregateModel {
-	private $_DbConnection;
 	const TABLE_NAME = 'tbjual';
 	const KODE_FIELD = 'nofaktur';
-	private $_Model;
 
 	function __construct() {
 		$Db = new InventoriDatabase();

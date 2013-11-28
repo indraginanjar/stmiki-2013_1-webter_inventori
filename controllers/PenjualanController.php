@@ -7,8 +7,6 @@ require_once dirname(__FILE__) . '/AgregateController.php';
 
 class PenjualanController extends AgregateController {
 
-	private $_Model;
-
 	function __construct($controllerActionIndex){
 		$this->_Model = new PenjualanModel();
 		parent::__construct('Penjualan', $this->_Model, array('barang' => new BarangModel(), 'customer'=> new CustomerModel()), $controllerActionIndex);
