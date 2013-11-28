@@ -37,13 +37,33 @@ class SingleKeyController extends Controller implements IController {
 		if($Id == NULL){
 			$this->WriteJsonSelectAll();
 		}
-		else {
+		else if(explode('?', $Id)[0] === 'search'){
+			$Query = PageParam::GetValue('query', 'GET');
+			$this->WriteJsonSearch($Query);
+		}
+		else if(is_numeric($Id)) {
 			$this->WriteJsonSelectItem($Id, $this->GetUpdateFieldsClue($Id));
+		}
+		else {
+			header('HTTP/1.1 400 Bad Request');
+			$Response = array(
+					'class' => array('error')
+					, 'properties' => (object) array(
+							'status' => 'failed'
+							, 'message' => 'Request syntax is wrong or invalid'
+							)
+					, 'links' => array(
+								(object) array(
+									'rel' => 'self'
+									, 'href' => $this->_Uri . $Id
+									)
+							)
+					);
+		exit(json_encode($Response));
 		}
 	}
 
-	function WriteJsonSelectItem($id, array $updateParams = NULL){
-		$Statement = $this->_Model->SelectByKey($id);
+	function WriteJsonSingleResult($statement, $id, array $updateParams = NULL){
 		$Actions = array(
 				(object) array(
 						'name' => 'delete'
@@ -78,10 +98,10 @@ class SingleKeyController extends Controller implements IController {
 						)
 				, 'actions' => $Actions
 				);
-		if($Row = $Statement->fetch(PDO::FETCH_NUM)){
+		if($Row = $statement->fetch(PDO::FETCH_NUM)){
 			$Properties = array();
-			for($I = 0; $I < $Statement->columnCount(); $I++){
-				$Column = $Statement->getColumnMeta($I);
+			for($I = 0; $I < $statement->columnCount(); $I++){
+				$Column = $statement->getColumnMeta($I);
 				$Properties = array_merge($Properties, array(
 						$Column['name'] => $Row[$I]
 							)
@@ -108,7 +128,12 @@ class SingleKeyController extends Controller implements IController {
 		exit(json_encode($Response));
 	}
 
-	function WriteJsonSelectAll(array $updateParams = NULL){
+	function WriteJsonSelectItem($id, array $updateParams = NULL){
+		$Statement = $this->_Model->SelectByKey($id);
+		$this->WriteJsonSingleResult($Statement, $id, $updateParams);
+	}
+
+	function WriteJsonMultipleItem($statement, array $updateParams = NULL){
 		$CreateClue = array(
 				'name' => 'create'
 				, 'href' => $this->_Uri
@@ -116,7 +141,6 @@ class SingleKeyController extends Controller implements IController {
 				);
 		$CreateClue = array_merge($CreateClue, $this->GetUpdateFieldsClue(NULL));
 
-		$Statement = $this->_Model->SelectAll();
 		$Response = array(
 				'class' => array('collection')
 				, 'entities' => array()
@@ -136,7 +160,7 @@ class SingleKeyController extends Controller implements IController {
 				);
 
 
-		foreach($Statement as $Row) {
+		foreach($statement as $Row) {
 			$UpdateClue = array_merge($UpdateClueBase, $this->GetUpdateFieldsClue($Row[0]));
 			$Entity = array(
 					'properties' => null
@@ -154,8 +178,8 @@ class SingleKeyController extends Controller implements IController {
 							)
 					);
 			$Properties = array();
-			for($I = 0; $I < $Statement->columnCount(); $I++){
-				$Column = $Statement->getColumnMeta($I);
+			for($I = 0; $I < $statement->columnCount(); $I++){
+				$Column = $statement->getColumnMeta($I);
 				$Properties = array_merge($Properties, array(
 						$Column['name'] => $Row[$I]
 							)
@@ -165,6 +189,21 @@ class SingleKeyController extends Controller implements IController {
 			$Response['entities'][] = (object) $Entity;
 		}
 		exit(json_encode($Response));
+	}
+
+	function WriteJsonSelectAll(array $updateParams = NULL){
+		$Statement = $this->_Model->SelectAll();
+		$this->WriteJsonMultipleItem($Statement, $updateParams);
+	}
+
+	function WriteJsonSearch($query, array $updateParams = NULL){
+		$Statement = $this->_Model->SelectFilteredByKey($query);
+		$this->WriteJsonMultipleItem($Statement, $updateParams);
+	}
+
+	function WriteJsonFilteredByKey($id, array $updateParams = NULL){
+		$Statement = $this->_Model->SelectFilteredByKey($id);
+		$this->WriteJsonMultipleItem($Statement, $updateParams);
 	}
 
 	function HandleDelete(){

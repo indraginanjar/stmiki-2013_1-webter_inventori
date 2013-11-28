@@ -7,6 +7,7 @@ abstract class Controller implements IController {
 	//public abstract function actionIndex();
 
 	protected $_Param;
+	protected $_Tail;
 
 	// menunjukkan index yang menjadi tempat controller ini
 	private $_ControllerActionIndex;
@@ -22,6 +23,9 @@ abstract class Controller implements IController {
 		$this->_ControllerActionIndex = $controllerActionIndex;
 		$this->_ActionToExecuteIndex = $this->_ControllerActionIndex + 1;
 		$this->_IdActionIndex = $this->_ControllerActionIndex + 2;
+		if($this->_Param->GetActionCount() - 1 != $this->_ControllerActionIndex){
+			$this->_Tail = $this->_Param->GetAction($this->_Param->GetActionCount() - 1);
+		}
 	}
 	
 	function GetParam() {

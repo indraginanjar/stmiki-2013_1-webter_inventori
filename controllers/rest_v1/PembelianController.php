@@ -34,7 +34,7 @@ class PembelianController extends AgregateController {
 				, (object) array(
 						'name' => 'BarangList[]'
 						, 'type' => 'text'
-						)
+						
 				, (object) array(
 						'name' => 'KodeSupplier'
 						, 'type' => 'text'
@@ -49,7 +49,6 @@ class PembelianController extends AgregateController {
 						)
 				));
 		return $Clue;
-
 	}
 }
 ?>

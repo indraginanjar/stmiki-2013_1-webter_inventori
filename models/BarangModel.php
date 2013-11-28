@@ -4,7 +4,6 @@ require_once dirname(__FILE__) . '/../inc/PageParam.php';
 require_once dirname(__FILE__) . '/SingleKeyModel.php';
 
 class BarangModel extends SingleKeyModel {
-	private $_DbConnection;
 	const TABLE_NAME = 'tbbarang';
 	const KODE_FIELD = 'kodebrg';
 

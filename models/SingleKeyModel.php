@@ -3,10 +3,10 @@ require_once dirname(__FILE__) . '/../inc/InventoriDatabase.php';
 require_once dirname(__FILE__) . '/../inc/PageParam.php';
 
 class SingleKeyModel {
-	private $_DbConnection;
-	private $_TableName;
-	private $_KeyField;
-	private $_FieldList;
+	protected $_DbConnection;
+	protected $_TableName;
+	protected $_KeyField;
+	protected $_FieldList;
 
 	function __construct($tableName, $keyField, $connection) {
 		$this->_DbConnection = $connection;
@@ -123,13 +123,21 @@ where '.$this->_KeyField.' like :'.$this->_KeyField;
 
 		$Statement = $this->_DbConnection->prepare($Sql);
 
-		if(!$Statement) die($this->_DbConnection->errorInfo()[2]);
+		assert($Statement, $this->_DbConnection->errorInfo()[2]);
+		if($this->_DbConnection->errorCode() != '00000'){
+			return false;
+		}
 
 		$key = '%' . $key . '%';
 
-		$Execution = $Statement->execute(array(':'.$this->_KeyField => $key));
+		$Parameter = array(':'.$this->_KeyField => $key);
+		$Execution = $Statement->execute($Parameter);
 
-		if(!$Execution) die($Statement->errorInfo()[2]);
+		assert($Execution, $Statement->errorInfo()[2]);
+		if($Statement->errorCode() != '00000'){
+			return false;
+		}
+		assert($Statement->rowCount() > 0, str_replace(array_keys($Parameter), array_values($Parameter), $Sql));
 		return $Statement;
 
 	}

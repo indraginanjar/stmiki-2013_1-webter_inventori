@@ -4,10 +4,7 @@ require_once dirname(__FILE__) . '/../inc/InventoriDatabase.php';
 require_once dirname(__FILE__) . '/../inc/PageParam.php';
 require_once dirname(__FILE__) . '/SingleKeyModel.php';
 
-
-
 class CustomerModel extends SingleKeyModel {
-	private $_DbConnection;
 	const TABLE_NAME = 'tbcustomer';
 	const KODE_FIELD = 'kodecst';
 

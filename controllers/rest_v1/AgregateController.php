@@ -121,16 +121,4 @@ class AgregateController extends SingleKeyController {
 		}
 		return $Statements;
 	}
-
-	function ActionEdit() {
-		$Statement = $this->GetModel()->SelectByKey($this->GetAction(3));
-		
-		$SingleItem = $Statement->fetch(PDO::FETCH_OBJ);
-		
-		$Statement = $this->GetModel()->SelectViewAll();
-
-		$Param = array('Statement' => $Statement, 'SingleItem' => $SingleItem);
-		$Param = array_merge($Param, $this->GetOtherModelsSelectAllStatement());	
-		$this->ShowCommonView($Param);
-	}
 }?>

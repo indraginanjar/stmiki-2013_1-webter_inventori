@@ -7,7 +7,6 @@ require_once dirname(__FILE__) . '/SingleKeyModel.php';
 
 
 class SupplierModel extends SingleKeyModel {
-	private $_DbConnection;
 	const TABLE_NAME = 'tbsuplier';
 	const KODE_FIELD = 'kodesupp';
 

@@ -7,7 +7,6 @@ require_once dirname(__FILE__) . '/AgregateModel.php';
 
 
 class PembelianModel extends AgregateModel {
-	private $_DbConnection;
 	const TABLE_NAME = 'tbbeli';
 	const KODE_FIELD = 'nofaktur';
 	private $_Model;

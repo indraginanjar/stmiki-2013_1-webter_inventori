@@ -45,7 +45,11 @@ class BarangController extends SingleKeyController {
 						)
 				));
 		return $Clue;
+	}
 
+	function WriteJsonSearch($query, array $updateParams = NULL){
+		$Statement = $this->_Model->SelectFilteredByKodeBarcodeOrNama($query);
+		$this->WriteJsonMultipleItem($Statement, $updateParams);
 	}
 }
 ?>

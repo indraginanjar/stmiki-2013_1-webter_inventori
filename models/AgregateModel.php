@@ -7,9 +7,6 @@ require_once dirname(__FILE__) . '/SingleKeyModel.php';
 class AgregateModel extends SingleKeyModel {
 
 	private $_ViewName;
-	private $_KeyField;
-	private $_TableName;
-	private $_DbConnection;
 
 	function __construct($tableName, $keyField, $connection, $viewName) {
 		parent::__construct($tableName, $keyField, $connection);

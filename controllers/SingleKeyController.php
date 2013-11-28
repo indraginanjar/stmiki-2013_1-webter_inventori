@@ -20,7 +20,6 @@ class SingleKeyController extends Controller implements IController {
 		$this->_PageName = $pageName;
 		$this->_PageUrl = $BaseUrl . 'index.php/' . $this->_PageName;
 		$this->_Model = $model;
-		$this->_Param = new PageParam();
 	}
 
 	function ActionIndex() {
