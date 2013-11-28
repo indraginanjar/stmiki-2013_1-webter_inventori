@@ -1,13 +1,12 @@
 <script>
-    $('#SearchButton').click(function() {
+$('#SearchButton').click(function() {
 	jQuery.ajax({
 		async:"true",
-        	type: "GET",
-        	url: "./Rest/Pembelian/" + $('#Search').val(),
-        	contentType: "application/json; charset=utf-8",
-        	dataType: "json",
+		type: "GET",
+		url: "./Rest/Pembelian/search?query=" + $('#Search').val(),
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
 		success: function (data, status, jqXHR) {
-			alert(JSON.stringify(data));
 			DrawDataTable(data);
 		},
 	    
@@ -19,11 +18,8 @@
 		complete: function (jqXHR, status) {
 		}
 	});
-
-//        $('#SearchForm').prop('action', '<?php echo $this->GetPageUrl() ?>/search/' + $('#Search').val());
 	return false;
-    });
-
+});
 
 var DaftarBarang = "";
 

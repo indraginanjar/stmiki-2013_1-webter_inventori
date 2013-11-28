@@ -141,17 +141,14 @@ group by nofaktur
 	, kodesupp
 	, tanggal
 ';
-		$Parameter = array(':nofaktur' => $noFaktur);
+		$Parameter = array(':nofaktur' => '%' . $noFaktur . '%');
 		$Statement = $this->_DbConnection->prepare($Sql);
 		$Execution = $Statement->execute($Parameter);
 		assert($Execution, $Statement->errorInfo()[2]);
 		if($Statement->errorCode() != '00000'){
 			return false;
 		}
-		if($Statement->rowCount() < 1) {
-			assert(false, str_replace(array_keys($Parameter), array_values($Parameter), $Sql));
-			return false;
-		}
+		assert($Statement->rowCount() > 0, str_replace(array_keys($Parameter), array_values($Parameter), $Sql));
 		return $Statement;
 	}
 }

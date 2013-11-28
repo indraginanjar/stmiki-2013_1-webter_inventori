@@ -29,15 +29,15 @@ class PembelianController extends AgregateController {
 		$Clue = array('fields' => array((object) $IdField
 				, (object) array(
 						'name' => 'Tanggal'
-						, 'type' => 'text'
+						, 'type' => 'date'
 						)
 				, (object) array(
 						'name' => 'BarangList[]'
-						, 'type' => 'text'
-						
+						, 'type' => 'number'
+						)
 				, (object) array(
 						'name' => 'KodeSupplier'
-						, 'type' => 'text'
+						, 'type' => 'number'
 						)
 				, (object) array(
 						'name' => 'HargaList[]'
@@ -49,6 +49,11 @@ class PembelianController extends AgregateController {
 						)
 				));
 		return $Clue;
+	}
+
+	function WriteJsonSearch($query, array $updateParams = NULL){
+		$Statement = $this->_Model->SelectFilteredByNoFakturOrNamaSupplier($query);
+		$this->WriteJsonMultipleItem($Statement, $updateParams);
 	}
 }
 ?>

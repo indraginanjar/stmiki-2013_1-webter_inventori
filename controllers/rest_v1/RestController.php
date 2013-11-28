@@ -19,19 +19,28 @@ class RestController extends Controller implements IController {
 				'class' => array('collection')
 				, 'entities' => array(
 							(object) array (
-								'href' => $this->_RestRoot . 'barang'
+								'class' => array('collection')
+								, 'href' => $this->_RestRoot . 'barang'
 								)
 							, (object) array (
-								'href' => $this->_RestRoot . 'supplier'
+								'class' => array('collection')
+								, 'href' => $this->_RestRoot . 'supplier'
 								)
 							, (object) array (
-								'href' => $this->_RestRoot . 'customer'
+								'class' => array('collection')
+								, 'href' => $this->_RestRoot . 'customer'
 								)
 							, (object) array (
-								'href' => $this->_RestRoot . 'pembelian'
+								'class' => array('collection')
+								, 'href' => $this->_RestRoot . 'pembelian'
 								)
 							, (object) array (
-								'href' => $this->_RestRoot . 'penjualan'
+								'class' => array('collection')
+								, 'href' => $this->_RestRoot . 'penjualan'
+								)
+							, (object) array (
+								'class' => array('item')
+								, 'href' => $this->_RestRoot . 'version'
 								)
 						)
 				, 'links'=> array(
@@ -80,7 +89,23 @@ class RestController extends Controller implements IController {
 	}
 
 	function ActionVersion(){
-		exit('1.0');
+		$Response = (object) array(
+				'class' => array('item')
+				, 'properties' => (object) array(
+						'version' => '1.0'
+						)
+				, 'links' => array(
+						(object) array(
+								'rel' => array('self')
+								, 'href' => $this->_RestRoot
+								)
+						, (object) array(
+								'rel' => array('up')
+								, 'href' => substr($this->_RestRoot, 0, 0 - strlen('version'))
+								)
+						)
+				);
+		exit(json_encode($Response));
 	}
 /*
 	function ActionRest(){

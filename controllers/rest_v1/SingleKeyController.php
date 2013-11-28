@@ -147,7 +147,7 @@ class SingleKeyController extends Controller implements IController {
 				, 'links' => array(
 						(object) array(
 								'rel' => array('self')
-								, 'href' => $this->_Uri
+								, 'href' => $this->_Uri . $this->_Tail
 								)
 						)
 				, 'actions' => array((object) $CreateClue)
